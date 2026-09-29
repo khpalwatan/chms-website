@@ -47,7 +47,7 @@ code,.mono{font-family:'JetBrains Mono',ui-monospace,monospace}
 @media(max-width:900px){.bg-steth{width:600px;height:600px;top:2%;right:-40%;opacity:.02}}
 
 /* ============================================================
-   SCROLL ANIMATIONS — cinematic, varied (persistent, both directions)
+   SCROLL ANIMATIONS — persistent, both directions
    ============================================================ */
 [data-anim]{
   opacity:0;
@@ -305,7 +305,7 @@ h2{
 .feat p{font-size:14px;color:#525252;line-height:1.6}
 
 /* ============================================================
-   NEW SECTION — INTERNET REQUIREMENT (3 cards)
+   INTERNET REQUIREMENT
    ============================================================ */
 .internet-sec{background:#fbfbfa}
 .internet-grid{
@@ -354,7 +354,7 @@ h2{
 }
 
 /* ============================================================
-   NEW SECTION — REQUIREMENTS (flat grid)
+   REQUIREMENTS
    ============================================================ */
 .req-sec{background:#f5f5f4}
 .req-grid{
@@ -380,7 +380,7 @@ h2{
 .req-item span small{display:block;font-weight:400;font-size:12.5px;color:#737373;margin-top:2px}
 
 /* ============================================================
-   NEW SECTION — WHY IT'S USEFUL (3 columns bullet points)
+   WHY IT'S USEFUL
    ============================================================ */
 .useful-sec{background:#fbfbfa}
 .useful-grid{
@@ -410,35 +410,47 @@ h2{
 .useful-col ul li b{color:#0a0a0a;font-weight:600}
 
 /* ============================================================
-   SCREENSHOTS — LAPTOP SLIDER
+   SCREENSHOTS — LAPTOP SLIDER (NEW: opens like a real laptop)
    ============================================================ */
-.shots-sec{background:#0a0a0a;color:#fbfbfa;padding:110px 0}
+.shots-sec{background:#0a0a0a;color:#fbfbfa;padding:110px 0;overflow:hidden}
 .shots-sec .section-eyebrow{color:#a3a3a3}
 .shots-sec h2{color:#fbfbfa}
 .shots-sec .section-sub{color:#a3a3a3}
 
 .laptop-wrap{
   max-width:900px;margin:0 auto;
-  perspective:1400px;
+  perspective:1800px;
 }
+
+/* The laptop container. Starts closed, opens on scroll-in. */
 .laptop{
   position:relative;
   transform-style:preserve-3d;
-  transition:transform .9s cubic-bezier(.16,1,.3,1);
+  transform-origin:50% 100%;
+  transition:transform 1.4s cubic-bezier(.16,1,.3,1);
+  /* closed state: screen lies flat on top of base */
+  transform:rotateX(-92deg);
 }
+
+/* Open state — triggered by .laptop-wrap.in */
+.laptop-wrap.in .laptop{
+  transform:rotateX(0deg);
+}
+
 .laptop-screen{
   background:linear-gradient(180deg,#1a1a1a,#0a0a0a);
-  border-radius:16px 16px 0 0;
-  padding:14px 14px 0;
+  border-radius:16px 16px 6px 6px;
+  padding:14px 14px 6px;
   box-shadow:
     0 -1px 0 rgba(255,255,255,.06) inset,
-    0 40px 80px -20px rgba(0,0,0,.6),
-    0 20px 60px -20px rgba(59,130,246,.15);
+    0 40px 80px -20px rgba(0,0,0,.7),
+    0 20px 60px -20px rgba(59,130,246,.2);
   position:relative;
+  transform-origin:50% 100%;
 }
 .laptop-screen::before{
   content:'';position:absolute;inset:0;
-  border-radius:16px 16px 0 0;padding:1px;
+  border-radius:16px 16px 6px 6px;padding:1px;
   background:linear-gradient(180deg,rgba(255,255,255,.15),transparent 60%);
   -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
   -webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none;
@@ -470,33 +482,15 @@ h2{
   width:100%;height:100%;object-fit:cover;
   user-select:none;-webkit-user-drag:none;
 }
-.slider-arrow{
-  position:absolute;top:50%;transform:translateY(-50%);
-  width:44px;height:44px;border-radius:50%;
-  background:rgba(255,255,255,.92);
-  border:none;cursor:pointer;
-  display:flex;align-items:center;justify-content:center;
-  color:#0a0a0a;
-  box-shadow:0 4px 16px rgba(0,0,0,.35);
-  transition:.25s cubic-bezier(.16,1,.3,1);
-  z-index:2;
-}
-.slider-arrow:hover{background:#fff;transform:translateY(-50%) scale(1.08)}
-.slider-arrow.prev{left:20px}
-.slider-arrow.next{right:20px}
-.slider-arrow svg{width:18px;height:18px}
-@media(max-width:640px){
-  .slider-arrow{width:36px;height:36px}
-  .slider-arrow.prev{left:10px}
-  .slider-arrow.next{right:10px}
-  .slider-arrow svg{width:15px;height:15px}
-}
+
 .laptop-base{
   height:22px;
   background:linear-gradient(180deg,#1c1c1c,#0a0a0a);
   border-radius:0 0 14px 14px;
   position:relative;
-  box-shadow:0 8px 24px -4px rgba(0,0,0,.5);
+  box-shadow:0 8px 24px -4px rgba(0,0,0,.6);
+  transform-origin:50% 0%;
+  margin-top:0;
 }
 .laptop-base::after{
   content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);
@@ -504,8 +498,35 @@ h2{
   background:#0a0a0a;
 }
 
+/* Slider controls — BELOW the laptop, not overlapping */
+.slider-controls{
+  display:flex;align-items:center;justify-content:center;
+  gap:20px;
+  margin-top:32px;
+  padding:0 20px;
+}
+.slider-arrow{
+  width:46px;height:46px;border-radius:50%;
+  background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.14);
+  cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  color:#fbfbfa;
+  transition:.25s cubic-bezier(.16,1,.3,1);
+  flex-shrink:0;
+  -webkit-tap-highlight-color:transparent;
+}
+.slider-arrow:hover{
+  background:rgba(255,255,255,.18);
+  border-color:rgba(255,255,255,.3);
+  transform:scale(1.08);
+}
+.slider-arrow:active{transform:scale(.95)}
+.slider-arrow svg{width:18px;height:18px}
+
 .slider-dots{
-  display:flex;justify-content:center;gap:8px;margin-top:32px;
+  display:flex;justify-content:center;gap:8px;
+  flex-wrap:wrap;
 }
 .slider-dot{
   width:8px;height:8px;border-radius:50%;
@@ -513,48 +534,80 @@ h2{
   border:none;cursor:pointer;padding:0;
   transition:.3s cubic-bezier(.16,1,.3,1);
 }
+.slider-dot:hover{background:rgba(255,255,255,.4)}
 .slider-dot.active{
   background:#fbfbfa;width:26px;border-radius:4px;
 }
 .slider-caption{
-  text-align:center;margin-top:24px;
+  text-align:center;margin-top:18px;
   color:#a3a3a3;font-size:13.5px;font-weight:500;
   min-height:22px;
   transition:opacity .3s;
+  padding:0 20px;
+}
+
+@media(max-width:640px){
+  .laptop-screen{padding:10px 10px 4px;border-radius:12px 12px 4px 4px}
+  .laptop-base{height:16px;border-radius:0 0 12px 12px}
+  .laptop-base::after{width:70px;height:4px}
+  .slider-controls{gap:14px;margin-top:24px}
+  .slider-arrow{width:42px;height:42px}
+  .slider-arrow svg{width:16px;height:16px}
+  .slider-dot{width:7px;height:7px}
+  .slider-dot.active{width:22px}
 }
 
 /* ============================================================
-   SHOT GRID (below laptop)
+   SHOT GRID (below laptop) — minimalistic borders, prominent
    ============================================================ */
-.shots-mini{
-  display:grid;grid-template-columns:repeat(4,1fr);gap:14px;
+.shots-hint{
+  text-align:center;
+  color:#8a8a8a;
+  font-size:13.5px;
+  font-weight:500;
   margin-top:64px;
+  margin-bottom:24px;
+  letter-spacing:.2px;
 }
-@media(max-width:900px){.shots-mini{grid-template-columns:1fr 1fr}}
+.shots-hint .icon{
+  display:inline-flex;vertical-align:middle;
+  margin-right:8px;color:#10b981;
+}
+.shots-mini{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:16px;
+}
+@media(max-width:900px){.shots-mini{grid-template-columns:1fr 1fr;gap:14px}}
 @media(max-width:520px){.shots-mini{grid-template-columns:1fr 1fr;gap:10px}}
 .shots-mini-item{
   aspect-ratio:16/10;border-radius:10px;overflow:hidden;
   cursor:zoom-in;position:relative;
-  background:#18181b;border:1px solid #27272a;
-  transition:.4s cubic-bezier(.16,1,.3,1);
+  background:#111;
+  border:1px solid rgba(255,255,255,.08);
+  transition:transform .4s cubic-bezier(.16,1,.3,1),border-color .3s,box-shadow .4s;
+  -webkit-tap-highlight-color:transparent;
 }
 .shots-mini-item:hover{
-  transform:translateY(-6px) scale(1.02);
-  border-color:#3f3f46;
-  box-shadow:0 20px 40px -10px rgba(59,130,246,.3);
+  transform:translateY(-4px) scale(1.02);
+  border-color:rgba(255,255,255,.25);
+  box-shadow:0 20px 40px -10px rgba(0,0,0,.6);
 }
-.shots-mini-item img{width:100%;height:100%;object-fit:cover}
+.shots-mini-item img{
+  width:100%;height:100%;object-fit:cover;
+  transition:transform .6s cubic-bezier(.16,1,.3,1);
+}
+.shots-mini-item:hover img{transform:scale(1.05)}
 .shots-mini-item::after{
   content:'';position:absolute;inset:0;
-  background:linear-gradient(180deg,transparent 60%,rgba(0,0,0,.6));
-  opacity:0;transition:opacity .3s;
+  background:linear-gradient(180deg,transparent 55%,rgba(0,0,0,.75));
+  opacity:0;transition:opacity .3s;pointer-events:none;
 }
 .shots-mini-item:hover::after{opacity:1}
 .shots-mini-label{
-  position:absolute;bottom:8px;left:12px;right:12px;
-  font-size:11px;font-weight:600;color:#fbfbfa;
+  position:absolute;bottom:10px;left:12px;right:12px;
+  font-size:11.5px;font-weight:600;color:#fbfbfa;
   opacity:0;transition:opacity .3s;
-  z-index:1;
+  z-index:1;pointer-events:none;
+  letter-spacing:.2px;
 }
 .shots-mini-item:hover .shots-mini-label{opacity:1}
 
@@ -841,7 +894,7 @@ h2{
 }
 
 /* ============================================================
-   LIGHTBOX — for screenshot zoom
+   LIGHTBOX
    ============================================================ */
 .lightbox{
   position:fixed;inset:0;z-index:9999;
@@ -908,7 +961,7 @@ h2{
 }
 
 /* ============================================================
-   MOBILE POLISH — 375px safe
+   MOBILE POLISH
    ============================================================ */
 @media(max-width:600px){
   section{padding:56px 0}
@@ -931,6 +984,7 @@ h2{
   .plan{padding:26px 22px}
   .faq-item{padding:20px 22px}
   .faq-q h3{font-size:14.5px}
+  .shots-hint{margin-top:40px;font-size:12.5px}
 }
 </style>
 </head>
@@ -1022,9 +1076,6 @@ h2{
   </div>
 </section>
 
-<!-- ============================================================
-     FEATURES
-     ============================================================ -->
 <section id="features" class="features-sec">
   <div class="wrap">
     <div class="section-head" data-anim="blur">
@@ -1073,9 +1124,6 @@ h2{
   </div>
 </section>
 
-<!-- ============================================================
-     NEW: INTERNET REQUIREMENT
-     ============================================================ -->
 <section class="internet-sec">
   <div class="wrap">
     <div class="section-head" data-anim="blur">
@@ -1118,9 +1166,6 @@ h2{
   </div>
 </section>
 
-<!-- ============================================================
-     NEW: REQUIREMENTS
-     ============================================================ -->
 <section class="req-sec">
   <div class="wrap">
     <div class="section-head" data-anim="blur">
@@ -1158,9 +1203,6 @@ h2{
   </div>
 </section>
 
-<!-- ============================================================
-     SCREENSHOTS
-     ============================================================ -->
 <section id="screenshots" class="shots-sec">
   <div class="wrap">
     <div class="section-head" data-anim="blur">
@@ -1169,8 +1211,8 @@ h2{
       <p class="section-sub">Every screen is designed for speed. Your staff will learn it in minutes, not days.</p>
     </div>
 
-    <!-- LAPTOP SLIDER -->
-    <div class="laptop-wrap" data-anim="flip">
+    <!-- LAPTOP SLIDER — opens like a real laptop on scroll-in -->
+    <div class="laptop-wrap" id="laptopWrap">
       <div class="laptop">
         <div class="laptop-screen">
           <div class="laptop-cam"></div>
@@ -1185,18 +1227,28 @@ h2{
               <div class="slider-slide"><img src="images/03-login.png" alt="Section login"></div>
               <div class="slider-slide"><img src="images/02-landing-alt.png" alt="Full portal"></div>
             </div>
-            <button class="slider-arrow prev" id="slidePrev" aria-label="Previous">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
-            </button>
-            <button class="slider-arrow next" id="slideNext" aria-label="Next">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
-            </button>
           </div>
         </div>
         <div class="laptop-base"></div>
       </div>
-      <div class="slider-dots" id="sliderDots"></div>
+
+      <!-- Controls BELOW the laptop -->
+      <div class="slider-controls">
+        <button class="slider-arrow prev" id="slidePrev" aria-label="Previous">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+        </button>
+        <div class="slider-dots" id="sliderDots"></div>
+        <button class="slider-arrow next" id="slideNext" aria-label="Next">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+        </button>
+      </div>
       <div class="slider-caption" id="sliderCaption">Department Portal</div>
+    </div>
+
+    <!-- Hint text -->
+    <div class="shots-hint">
+      <span class="icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
+      Click any image to view full size
     </div>
 
     <!-- MINI GRID -->
@@ -1237,9 +1289,6 @@ h2{
   </div>
 </section>
 
-<!-- ============================================================
-     WHY CHMS
-     ============================================================ -->
 <section class="why-sec">
   <div class="wrap">
     <div class="section-head" data-anim="blur">
@@ -1256,9 +1305,6 @@ h2{
   </div>
 </section>
 
-<!-- ============================================================
-     NEW: WHY IT'S USEFUL
-     ============================================================ -->
 <section class="useful-sec">
   <div class="wrap">
     <div class="section-head" data-anim="blur">
@@ -1299,9 +1345,6 @@ h2{
   </div>
 </section>
 
-<!-- ============================================================
-     PRICING
-     ============================================================ -->
 <section id="pricing" class="pricing-sec">
   <div class="wrap">
     <div class="section-head" data-anim="blur">
@@ -1311,7 +1354,6 @@ h2{
     </div>
 
     <div class="pricing-grid">
-      <!-- Monthly -->
       <div class="plan" data-anim="left">
         <div class="plan-name">Monthly</div>
         <div class="plan-price"><span class="cur">Rs.</span>3,000</div>
@@ -1328,7 +1370,6 @@ h2{
         </div>
       </div>
 
-      <!-- Lifetime (best) -->
       <div class="plan best" data-anim="zoom">
         <div class="plan-tag">Best value</div>
         <div class="plan-name">Lifetime</div>
@@ -1346,7 +1387,6 @@ h2{
         </div>
       </div>
 
-      <!-- Yearly -->
       <div class="plan" data-anim="right">
         <div class="plan-name">Yearly</div>
         <div class="plan-price"><span class="cur">Rs.</span>19,000</div>
@@ -1366,7 +1406,6 @@ h2{
 
     <p class="pricing-note" data-anim="up">Need more servers? <b>+Rs. 15,000 one-time per extra server.</b></p>
 
-    <!-- COMPARISON TABLE -->
     <div class="compare-wrap" data-anim="up">
       <table class="compare-table">
         <thead>
@@ -1444,9 +1483,6 @@ h2{
   </div>
 </section>
 
-<!-- ============================================================
-     FAQ
-     ============================================================ -->
 <section id="faq" class="faq-sec">
   <div class="wrap">
     <div class="section-head" data-anim="blur">
@@ -1483,9 +1519,6 @@ h2{
   </div>
 </section>
 
-<!-- ============================================================
-     CTA — honest, no-pressure
-     ============================================================ -->
 <section id="contact" class="cta-sec">
   <div class="wrap">
     <h2 data-anim="up">Try it. If it doesn't fit your hospital, don't buy it.</h2>
@@ -1503,9 +1536,6 @@ h2{
   </div>
 </section>
 
-<!-- ============================================================
-     FOOTER
-     ============================================================ -->
 <footer class="foot">
   <div class="wrap">
     <div class="foot-inner">
@@ -1540,7 +1570,6 @@ h2{
   </div>
 </footer>
 
-<!-- LIGHTBOX -->
 <div class="lightbox" id="lightbox">
   <button class="lightbox-close" id="lightboxClose" aria-label="Close">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
@@ -1558,49 +1587,42 @@ h2{
 </div>
 
 <script>
-/* ============================================================
-   LOGO LOADER
-   ============================================================ */
+/* Logo loader */
 (function(){
   const candidates = ['logo.png','logo.svg','logo.jpg','logo.jpeg','logo.webp','logo.ico'];
   const fallbackSmall = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M2 12h20"/></svg>';
   const fallbackBig = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="width:100%;height:100%;color:#0a0a0a;opacity:.85"><path d="M12 2v20M2 12h20"/><rect x="2" y="2" width="20" height="20" rx="4"/></svg>';
-
   document.querySelectorAll('[data-logo]').forEach(host => {
     let i = 0;
     (function tryNext(){
       if (i >= candidates.length) { host.innerHTML = fallbackSmall; return; }
       const url = candidates[i++];
       const t = new Image();
-      t.onload  = () => { host.innerHTML = '<img src="' + url + '" alt="CHMS">'; };
+      t.onload = () => { host.innerHTML = '<img src="' + url + '" alt="CHMS">'; };
       t.onerror = tryNext;
       t.src = url;
     })();
   });
-
   document.querySelectorAll('[data-logo-big]').forEach(host => {
     let i = 0;
     (function tryNext(){
       if (i >= candidates.length) { host.innerHTML = fallbackBig; return; }
       const url = candidates[i++];
       const t = new Image();
-      t.onload  = () => { host.innerHTML = '<img src="' + url + '" alt="CHMS">'; };
+      t.onload = () => { host.innerHTML = '<img src="' + url + '" alt="CHMS">'; };
       t.onerror = tryNext;
       t.src = url;
     })();
   });
 })();
 
-/* ============================================================
-   SCROLL REVEAL — persistent (re-animates both directions)
-   ============================================================ */
+/* Scroll reveal — persistent, both directions */
 (function(){
   const targets = document.querySelectorAll('[data-anim], .stagger');
   if (!('IntersectionObserver' in window)) {
     targets.forEach(e => e.classList.add('in'));
     return;
   }
-
   const io = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
@@ -1610,13 +1632,25 @@ h2{
       }
     });
   }, { threshold: 0.08, rootMargin: '0px 0px -60px 0px' });
-
   targets.forEach(t => io.observe(t));
+
+  // Laptop special — opens when section is in view, closes when it leaves
+  const laptopWrap = document.getElementById('laptopWrap');
+  if (laptopWrap) {
+    const lapIo = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          laptopWrap.classList.add('in');
+        } else {
+          laptopWrap.classList.remove('in');
+        }
+      });
+    }, { threshold: 0.25 });
+    lapIo.observe(laptopWrap);
+  }
 })();
 
-/* ============================================================
-   PARALLAX STETHOSCOPE
-   ============================================================ */
+/* Parallax stethoscope */
 (function(){
   const el = document.querySelector('.bg-steth');
   if (!el) return;
@@ -1631,9 +1665,7 @@ h2{
   }, { passive: true });
 })();
 
-/* ============================================================
-   SMOOTH SCROLL — cinematic anchor navigation
-   ============================================================ */
+/* Smooth scroll */
 (function(){
   document.querySelectorAll('a[data-scroll], a[href^="#"]').forEach(a => {
     a.addEventListener('click', (e) => {
@@ -1648,9 +1680,7 @@ h2{
   });
 })();
 
-/* ============================================================
-   LAPTOP SLIDER
-   ============================================================ */
+/* Laptop slider */
 (function(){
   const track = document.getElementById('sliderTrack');
   const dotsContainer = document.getElementById('sliderDots');
@@ -1690,10 +1720,8 @@ h2{
     dots.forEach((d, k) => d.classList.toggle('active', k === current));
     if (captionEl) captionEl.textContent = captions[current] || '';
   }
-
   function nextSlide(){ goto(current + 1); }
   function prevSlide(){ goto(current - 1); }
-
   function startAuto(){ stopAuto(); autoTimer = setInterval(nextSlide, AUTO_MS); }
   function stopAuto(){ if (autoTimer) { clearInterval(autoTimer); autoTimer = null; } }
 
@@ -1724,9 +1752,7 @@ h2{
   startAuto();
 })();
 
-/* ============================================================
-   LIGHTBOX — clickable screenshots with zoom + pan
-   ============================================================ */
+/* Lightbox */
 (function(){
   const lightbox = document.getElementById('lightbox');
   const img = document.getElementById('lightboxImg');
@@ -1735,17 +1761,12 @@ h2{
   const nextBtn = document.getElementById('lightboxNext');
   const items = Array.from(document.querySelectorAll('.shots-mini-item'));
 
-  let currentIndex = 0;
-  let scale = 1;
-  let tx = 0, ty = 0;
-  let dragging = false;
-  let lastX = 0, lastY = 0;
+  let currentIndex = 0, scale = 1, tx = 0, ty = 0;
+  let dragging = false, lastX = 0, lastY = 0;
 
   function labels() { return items.map(it => it.querySelector('.shots-mini-label').textContent.trim()); }
-
   function apply() { img.style.transform = 'translate(' + tx + 'px,' + ty + 'px) scale(' + scale + ')'; }
   function reset() { scale = 1; tx = 0; ty = 0; apply(); }
-
   function open(i) {
     currentIndex = i;
     img.src = items[i].dataset.img;
@@ -1754,14 +1775,12 @@ h2{
     lightbox.classList.add('open');
     document.body.style.overflow = 'hidden';
   }
-
   function close() {
     lightbox.classList.remove('open');
     document.body.style.overflow = '';
     img.src = '';
     reset();
   }
-
   function go(delta) {
     currentIndex = ((currentIndex + delta) % items.length + items.length) % items.length;
     img.src = items[currentIndex].dataset.img;
@@ -1770,11 +1789,9 @@ h2{
   }
 
   items.forEach((it, i) => it.addEventListener('click', () => open(i)));
-
   closeBtn.addEventListener('click', close);
   prevBtn.addEventListener('click', (e) => { e.stopPropagation(); go(-1); });
   nextBtn.addEventListener('click', (e) => { e.stopPropagation(); go(1); });
-
   lightbox.addEventListener('click', (e) => {
     if (e.target === lightbox || e.target.classList.contains('lightbox-img-wrap')) close();
   });
@@ -1817,8 +1834,7 @@ h2{
   });
   window.addEventListener('mouseup', () => { dragging = false; img.classList.remove('grabbing'); });
 
-  let pinchStart = 0, pinchStartScale = 1;
-  let panStartX = 0, panStartY = 0;
+  let pinchStart = 0, pinchStartScale = 1, panStartX = 0, panStartY = 0;
   img.addEventListener('touchstart', (e) => {
     if (e.touches.length === 2) {
       pinchStart = distance(e.touches[0], e.touches[1]);
@@ -1847,9 +1863,7 @@ h2{
   function distance(a, b) { const dx = a.clientX - b.clientX; const dy = a.clientY - b.clientY; return Math.hypot(dx, dy); }
 })();
 
-/* ============================================================
-   FAQ ACCORDION
-   ============================================================ */
+/* FAQ */
 (function(){
   document.querySelectorAll('.faq-item').forEach(item => {
     item.querySelector('.faq-q').addEventListener('click', () => {
