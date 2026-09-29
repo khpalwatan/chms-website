@@ -10,334 +10,745 @@
 <link rel="icon" type="image/png" href="logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..900;1,400..900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
+/* ============================================================
+   CHMS MARKETING — v2.0
+   Modern · Formal · Professional
+   ============================================================ */
+
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
 body{
-  font-family:'Inter',system-ui,-apple-system,sans-serif;
-  font-size:15.5px;line-height:1.6;color:#09090b;background:#fafafa;
-  font-feature-settings:"ss01","cv11","cv02";overflow-x:hidden;
+  font-family:'Instrument Sans',system-ui,-apple-system,sans-serif;
+  font-size:15.5px;line-height:1.6;color:#0a0a0a;background:#fbfbfa;
+  font-feature-settings:"ss01","cv11";overflow-x:hidden;
 }
 a{color:inherit;text-decoration:none}
 img{max-width:100%;display:block}
 svg{display:block}
 code,.mono{font-family:'JetBrains Mono',ui-monospace,monospace}
 
-.wrap{max-width:1140px;margin:0 auto;padding:0 24px}
+.wrap{max-width:1160px;margin:0 auto;padding:0 28px}
 
 /* ============================================================
-   SCROLL ANIMATIONS — fluid, springy
+   PARALLAX BACKGROUND — faded stethoscope
    ============================================================ */
-[data-anim]{opacity:0;transition:opacity 1.1s cubic-bezier(.16,1,.3,1),transform 1.1s cubic-bezier(.16,1,.3,1),filter 1.1s cubic-bezier(.16,1,.3,1)}
-[data-anim="fade-up"]{transform:translateY(60px)}
-[data-anim="fade-down"]{transform:translateY(-40px)}
-[data-anim="fade-left"]{transform:translateX(-80px) rotateY(-10deg)}
-[data-anim="fade-right"]{transform:translateX(80px) rotateY(10deg)}
-[data-anim="zoom-in"]{transform:scale(.88)}
-[data-anim="zoom-out"]{transform:scale(1.12)}
-[data-anim="flip-up"]{transform:perspective(1200px) rotateX(-45deg) translateY(60px);transform-origin:center bottom}
-[data-anim="flip-down"]{transform:perspective(1200px) rotateX(45deg) translateY(-60px);transform-origin:center top}
-[data-anim="blur-in"]{filter:blur(14px);transform:translateY(30px)}
+.bg-decor{
+  position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;
+}
+.bg-steth{
+  position:absolute;top:-8%;right:-12%;
+  width:900px;height:900px;
+  color:#0a0a0a;opacity:.028;
+  transition:transform .6s cubic-bezier(.16,1,.3,1);
+  will-change:transform;
+}
+@media(max-width:900px){.bg-steth{width:600px;height:600px;top:2%;right:-40%;opacity:.02}}
+
+/* ============================================================
+   SCROLL ANIMATIONS — cinematic, varied
+   ============================================================ */
+[data-anim]{
+  opacity:0;
+  transition:opacity 1.15s cubic-bezier(.16,1,.3,1),
+             transform 1.15s cubic-bezier(.16,1,.3,1),
+             filter 1.15s cubic-bezier(.16,1,.3,1);
+  will-change:opacity,transform;
+}
+[data-anim="up"]      {transform:translateY(60px)}
+[data-anim="down"]    {transform:translateY(-50px)}
+[data-anim="left"]    {transform:translateX(-90px) rotateY(8deg)}
+[data-anim="right"]   {transform:translateX(90px) rotateY(-8deg)}
+[data-anim="zoom"]    {transform:scale(.9)}
+[data-anim="rotate"]  {transform:rotate(-4deg) scale(.94)}
+[data-anim="blur"]    {filter:blur(12px);transform:translateY(30px)}
+[data-anim="flip"]    {transform:perspective(1400px) rotateX(-40deg) translateY(60px);transform-origin:center bottom}
+[data-anim="flip-d"]  {transform:perspective(1400px) rotateX(40deg) translateY(-60px);transform-origin:center top}
 [data-anim].in{opacity:1;transform:none;filter:none}
 
-/* Stagger children */
-.stagger > *{opacity:0;transform:translateY(50px) scale(.96);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1)}
+/* stagger */
+.stagger > *{
+  opacity:0;transform:translateY(45px) scale(.97);
+  transition:opacity .95s cubic-bezier(.16,1,.3,1),transform .95s cubic-bezier(.16,1,.3,1);
+}
 .stagger.in > *{opacity:1;transform:none}
 .stagger.in > *:nth-child(1){transition-delay:0ms}
-.stagger.in > *:nth-child(2){transition-delay:90ms}
-.stagger.in > *:nth-child(3){transition-delay:180ms}
-.stagger.in > *:nth-child(4){transition-delay:270ms}
-.stagger.in > *:nth-child(5){transition-delay:360ms}
-.stagger.in > *:nth-child(6){transition-delay:450ms}
-.stagger.in > *:nth-child(7){transition-delay:540ms}
-.stagger.in > *:nth-child(8){transition-delay:630ms}
+.stagger.in > *:nth-child(2){transition-delay:80ms}
+.stagger.in > *:nth-child(3){transition-delay:160ms}
+.stagger.in > *:nth-child(4){transition-delay:240ms}
+.stagger.in > *:nth-child(5){transition-delay:320ms}
+.stagger.in > *:nth-child(6){transition-delay:400ms}
+.stagger.in > *:nth-child(7){transition-delay:480ms}
+.stagger.in > *:nth-child(8){transition-delay:560ms}
 
-/* Word-by-word hero title */
-.hero h1 .word{display:inline-block;opacity:0;transform:translateY(40px) rotateX(-90deg);transform-origin:bottom;animation:heroWord .9s cubic-bezier(.16,1,.3,1) forwards}
+/* hero word reveal */
+.hero h1 .word{
+  display:inline-block;opacity:0;
+  transform:translateY(38px) rotateX(-60deg);
+  transform-origin:bottom;
+  animation:heroWord .9s cubic-bezier(.16,1,.3,1) forwards;
+}
 .hero h1 .word:nth-child(1){animation-delay:.05s}
-.hero h1 .word:nth-child(2){animation-delay:.12s}
-.hero h1 .word:nth-child(3){animation-delay:.19s}
-.hero h1 .word:nth-child(4){animation-delay:.26s}
-.hero h1 .word:nth-child(5){animation-delay:.33s}
-.hero h1 .word:nth-child(6){animation-delay:.40s}
-.hero h1 .word:nth-child(7){animation-delay:.47s}
-.hero h1 .word:nth-child(8){animation-delay:.54s}
+.hero h1 .word:nth-child(2){animation-delay:.11s}
+.hero h1 .word:nth-child(3){animation-delay:.17s}
+.hero h1 .word:nth-child(4){animation-delay:.23s}
+.hero h1 .word:nth-child(5){animation-delay:.29s}
+.hero h1 .word:nth-child(6){animation-delay:.35s}
+.hero h1 .word:nth-child(7){animation-delay:.41s}
+.hero h1 .word:nth-child(8){animation-delay:.47s}
 @keyframes heroWord{to{opacity:1;transform:translateY(0) rotateX(0)}}
 
-/* Section drift (subtle parallax on section headers) */
-.drift{transition:transform .6s cubic-bezier(.16,1,.3,1)}
-
-/* Reduced motion */
 @media (prefers-reduced-motion: reduce){
-  *,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important}
+  *,*::before,*::after{
+    animation-duration:.01ms !important;
+    animation-iteration-count:1 !important;
+    transition-duration:.01ms !important;
+  }
   [data-anim],.stagger>*{opacity:1;transform:none;filter:none}
 }
 
-/* ---------- NAV ---------- */
+/* ============================================================
+   NAV
+   ============================================================ */
 .nav{
-  position:sticky;top:0;z-index:50;
-  background:rgba(250,250,250,.85);
-  backdrop-filter:saturate(180%) blur(14px);
-  -webkit-backdrop-filter:saturate(180%) blur(14px);
-  border-bottom:1px solid #e4e4e7;
+  position:sticky;top:0;z-index:60;
+  background:rgba(251,251,250,.82);
+  backdrop-filter:saturate(180%) blur(16px);
+  -webkit-backdrop-filter:saturate(180%) blur(16px);
+  border-bottom:1px solid rgba(0,0,0,.06);
 }
 .nav-inner{
-  max-width:1140px;margin:0 auto;padding:12px 24px;
+  max-width:1160px;margin:0 auto;padding:12px 28px;
   display:flex;justify-content:space-between;align-items:center;gap:24px;
 }
-.logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:15px;letter-spacing:-.2px}
+.logo{display:flex;align-items:center;gap:11px;font-weight:800;font-size:15px;letter-spacing:-.25px}
 .logo-mark{
-  width:34px;height:34px;border-radius:8px;
-  background:#09090b;color:#fafafa;flex-shrink:0;
+  width:36px;height:36px;border-radius:9px;
+  background:#ffffff;flex-shrink:0;
   display:flex;align-items:center;justify-content:center;
   overflow:hidden;
+  border:1px solid rgba(0,0,0,.08);
+  box-shadow:0 1px 2px rgba(0,0,0,.04);
 }
-.logo-mark img{width:100%;height:100%;object-fit:contain}
-.logo-mark svg{width:18px;height:18px}
-.nav-links{display:flex;gap:26px;align-items:center;font-size:13.5px;font-weight:500}
-.nav-links a{color:#71717a;transition:color .15s}
-.nav-links a:hover{color:#09090b}
+.logo-mark img{width:100%;height:100%;object-fit:contain;padding:3px}
+.logo-mark svg{width:18px;height:18px;color:#0a0a0a}
+.nav-links{display:flex;gap:28px;align-items:center;font-size:13.5px;font-weight:500}
+.nav-links a{color:#6b6b6b;transition:color .18s}
+.nav-links a:hover{color:#0a0a0a}
 .nav-cta{
-  background:#2563eb;color:#ffffff !important;padding:9px 16px;border-radius:8px;
-  font-weight:700;font-size:13px;transition:.2s;
-  border:1px solid #2563eb;
+  background:#0a0a0a;color:#ffffff !important;
+  padding:9px 18px;border-radius:9px;
+  font-weight:700;font-size:13px;
+  border:1px solid #0a0a0a;
+  transition:.2s cubic-bezier(.16,1,.3,1);
 }
-.nav-cta:hover{background:#1d4ed8;border-color:#1d4ed8;transform:translateY(-1px);box-shadow:0 6px 18px rgba(37,99,235,.25)}
-@media(max-width:820px){.nav-links a:not(.nav-cta){display:none}}
+.nav-cta:hover{background:#1a1a1a;transform:translateY(-1px);box-shadow:0 8px 20px -6px rgba(0,0,0,.35)}
+@media(max-width:840px){.nav-links a:not(.nav-cta){display:none}}
 
-/* ---------- BUTTONS ---------- */
+/* ============================================================
+   BUTTONS
+   ============================================================ */
 .btn{
-  display:inline-flex;align-items:center;justify-content:center;gap:8px;
-  padding:12px 20px;border-radius:10px;
+  display:inline-flex;align-items:center;justify-content:center;gap:9px;
+  padding:13px 22px;border-radius:11px;
   font-size:14px;font-weight:600;cursor:pointer;border:none;
-  transition:.2s cubic-bezier(.16,1,.3,1);text-decoration:none;
+  transition:.25s cubic-bezier(.16,1,.3,1);
 }
-.btn-primary{background:#09090b;color:#fafafa}
-.btn-primary:hover{background:#27272a;transform:translateY(-2px);box-shadow:0 8px 24px -6px rgba(9,9,11,.3)}
-.btn-ghost{background:#fff;color:#09090b;border:1px solid #e4e4e7}
-.btn-ghost:hover{background:#fafafa;border-color:#a1a1aa;transform:translateY(-2px)}
+.btn-primary{background:#0a0a0a;color:#fbfbfa}
+.btn-primary:hover{background:#1a1a1a;transform:translateY(-2px);box-shadow:0 12px 28px -8px rgba(0,0,0,.35)}
+.btn-ghost{background:#fff;color:#0a0a0a;border:1px solid rgba(0,0,0,.1)}
+.btn-ghost:hover{background:#fbfbfa;border-color:rgba(0,0,0,.25);transform:translateY(-2px)}
 
-/* ---------- HERO ---------- */
-.hero{padding:96px 0 88px;background:#fafafa;position:relative;overflow:hidden}
-.hero::before{
-  content:'';position:absolute;top:-30%;right:-10%;width:600px;height:600px;
-  background:radial-gradient(circle,rgba(37,99,235,.08),transparent 65%);
-  pointer-events:none;z-index:0;
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero{
+  padding:110px 0 100px;position:relative;z-index:1;
 }
-.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:64px;align-items:center;position:relative;z-index:1}
+.hero-grid{
+  display:grid;grid-template-columns:1.15fr .85fr;gap:72px;align-items:center;
+}
 @media(max-width:900px){.hero-grid{grid-template-columns:1fr;gap:48px}}
+
 .eyebrow{
-  display:inline-flex;align-items:center;gap:8px;
-  padding:4px 10px;border-radius:6px;
-  background:#fff;border:1px solid #e4e4e7;
-  font-size:12px;font-weight:600;color:#52525b;margin-bottom:24px;
+  display:inline-flex;align-items:center;gap:9px;
+  padding:5px 12px;border-radius:8px;
+  background:#fff;border:1px solid rgba(0,0,0,.08);
+  font-size:12px;font-weight:600;color:#525252;margin-bottom:26px;
+  box-shadow:0 1px 2px rgba(0,0,0,.03);
 }
-.eyebrow-dot{width:6px;height:6px;border-radius:50%;background:#10b981;box-shadow:0 0 0 3px #d1fae5}
+.eyebrow-dot{
+  width:6px;height:6px;border-radius:50%;background:#10b981;
+  box-shadow:0 0 0 3px rgba(16,185,129,.15);
+}
 .hero h1{
-  font-size:56px;line-height:1.02;font-weight:800;
-  letter-spacing:-2.5px;margin-bottom:20px;
+  font-size:58px;line-height:1.02;font-weight:800;
+  letter-spacing:-2.6px;margin-bottom:22px;color:#0a0a0a;
 }
-.hero h1 .word.muted{color:#a1a1aa}
-@media(max-width:768px){.hero h1{font-size:38px;letter-spacing:-1.5px}}
-.hero-lead{font-size:17.5px;color:#52525b;max-width:520px;margin-bottom:32px;line-height:1.55}
-.hero-actions{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:32px}
-.hero-meta{display:flex;gap:20px;flex-wrap:wrap;font-size:13px;color:#71717a}
-.hero-meta span{display:flex;align-items:center;gap:6px}
+.hero h1 .word.muted{color:#b0b0b0}
+@media(max-width:768px){.hero h1{font-size:40px;letter-spacing:-1.6px}}
+.hero-lead{
+  font-size:17.5px;color:#525252;max-width:540px;
+  margin-bottom:34px;line-height:1.55;
+}
+.hero-actions{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:34px}
+.hero-meta{
+  display:flex;gap:22px;flex-wrap:wrap;font-size:13px;color:#737373;
+}
+.hero-meta span{display:flex;align-items:center;gap:7px}
 .hero-meta svg{color:#10b981;flex-shrink:0}
 
-/* ---------- APP PREVIEW ---------- */
-.app-preview{
-  background:#09090b;border-radius:14px;padding:12px;
-  box-shadow:0 24px 64px -12px rgba(9,9,11,.35);
+/* Hero logo panel */
+.hero-logo-panel{
+  aspect-ratio:1/1;max-width:420px;
+  margin:0 auto;
+  display:flex;align-items:center;justify-content:center;
   position:relative;
-  will-change:transform;
-  transition:transform .15s linear;
 }
-.app-preview::before{
-  content:'';position:absolute;inset:0;border-radius:14px;padding:1px;
-  background:linear-gradient(180deg,#27272a 0%,#09090b 60%);
+.hero-logo-panel::before{
+  content:'';position:absolute;inset:8%;
+  background:radial-gradient(circle at 50% 40%, rgba(10,10,10,.05), transparent 62%);
+  border-radius:50%;
+  animation:breathe 8s ease-in-out infinite;
+}
+@keyframes breathe{
+  0%,100%{transform:scale(1);opacity:.7}
+  50%    {transform:scale(1.06);opacity:1}
+}
+.hero-logo-panel .logo-big{
+  width:62%;height:62%;
+  display:flex;align-items:center;justify-content:center;
+  position:relative;z-index:1;
+  animation:floatLogo 7s ease-in-out infinite;
+}
+@keyframes floatLogo{
+  0%,100%{transform:translateY(0) rotate(0deg)}
+  50%    {transform:translateY(-14px) rotate(1.5deg)}
+}
+.hero-logo-panel .logo-big img{
+  max-width:100%;max-height:100%;object-fit:contain;
+  filter:drop-shadow(0 24px 48px rgba(0,0,0,.12));
+}
+
+/* ============================================================
+   TRUST STRIP
+   ============================================================ */
+.trust{
+  background:#fff;padding:38px 0;
+  border-top:1px solid rgba(0,0,0,.06);
+  border-bottom:1px solid rgba(0,0,0,.06);
+  position:relative;z-index:1;
+}
+.trust-inner{
+  display:flex;justify-content:space-around;gap:24px;flex-wrap:wrap;
+  max-width:1060px;margin:0 auto;
+}
+.trust-item{display:flex;align-items:center;gap:13px;color:#525252;font-size:14px;font-weight:500}
+.trust-icon{
+  width:38px;height:38px;border-radius:10px;
+  background:#f5f5f4;color:#0a0a0a;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.trust-icon svg{width:19px;height:19px}
+.trust-item b{color:#0a0a0a}
+
+/* ============================================================
+   SECTIONS
+   ============================================================ */
+section{padding:100px 0;position:relative;z-index:1}
+.section-head{text-align:center;max-width:680px;margin:0 auto 64px}
+.section-eyebrow{
+  font-size:11.5px;font-weight:700;letter-spacing:1.4px;
+  color:#8a8a8a;text-transform:uppercase;margin-bottom:16px;
+}
+h2{
+  font-size:42px;font-weight:800;letter-spacing:-1.6px;
+  line-height:1.08;margin-bottom:16px;
+}
+@media(max-width:768px){h2{font-size:30px;letter-spacing:-.9px}}
+.section-sub{color:#525252;font-size:16.5px;line-height:1.55}
+
+/* ============================================================
+   FEATURES
+   ============================================================ */
+.features-sec{background:#f5f5f4}
+.features-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:1px;background:rgba(0,0,0,.07);
+  border:1px solid rgba(0,0,0,.07);border-radius:14px;overflow:hidden;
+}
+@media(max-width:900px){.features-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:600px){.features-grid{grid-template-columns:1fr}}
+.feat{
+  background:#fbfbfa;padding:32px;
+  transition:background .3s cubic-bezier(.16,1,.3,1);
+  position:relative;
+}
+.feat:hover{background:#ffffff}
+.feat-icon{
+  width:46px;height:46px;border-radius:11px;
+  background:#0a0a0a;color:#fbfbfa;
+  display:flex;align-items:center;justify-content:center;
+  margin-bottom:20px;
+  transition:transform .5s cubic-bezier(.16,1,.3,1);
+}
+.feat:hover .feat-icon{transform:scale(1.1) rotate(-5deg)}
+.feat-icon svg{width:22px;height:22px}
+.feat-num{
+  position:absolute;top:28px;right:28px;
+  font-family:'JetBrains Mono',monospace;
+  font-size:11px;font-weight:700;color:#d4d4d4;letter-spacing:.6px;
+}
+.feat h3{font-size:16.5px;font-weight:700;letter-spacing:-.3px;margin-bottom:8px}
+.feat p{font-size:14px;color:#525252;line-height:1.6}
+
+/* ============================================================
+   SCREENSHOTS — LAPTOP SLIDER
+   ============================================================ */
+.shots-sec{background:#0a0a0a;color:#fbfbfa;padding:110px 0}
+.shots-sec .section-eyebrow{color:#a3a3a3}
+.shots-sec h2{color:#fbfbfa}
+.shots-sec .section-sub{color:#a3a3a3}
+
+.laptop-wrap{
+  max-width:900px;margin:0 auto;
+  perspective:1400px;
+}
+.laptop{
+  position:relative;
+  transform-style:preserve-3d;
+  transition:transform .9s cubic-bezier(.16,1,.3,1);
+}
+.laptop-screen{
+  background:linear-gradient(180deg,#1a1a1a,#0a0a0a);
+  border-radius:16px 16px 0 0;
+  padding:14px 14px 0;
+  box-shadow:
+    0 -1px 0 rgba(255,255,255,.06) inset,
+    0 40px 80px -20px rgba(0,0,0,.6),
+    0 20px 60px -20px rgba(59,130,246,.15);
+  position:relative;
+}
+.laptop-screen::before{
+  content:'';position:absolute;inset:0;
+  border-radius:16px 16px 0 0;padding:1px;
+  background:linear-gradient(180deg,rgba(255,255,255,.15),transparent 60%);
   -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
   -webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none;
 }
-.app-bar{display:flex;gap:6px;margin-bottom:12px;padding:2px 4px}
-.app-bar span{width:10px;height:10px;border-radius:50%;background:#27272a}
-.app-screen{background:#fafafa;border-radius:8px;padding:22px;min-height:340px}
-.app-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:18px;padding-bottom:14px;border-bottom:1px solid #e4e4e7}
-.app-head b{font-size:14px;font-weight:700;color:#09090b;letter-spacing:-.2px}
-.app-head small{font-size:11px;color:#a1a1aa;font-family:'JetBrains Mono',monospace}
-.app-stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px}
-.app-stat{background:#fff;border:1px solid #e4e4e7;border-radius:8px;padding:12px 14px}
-.app-stat .k{font-size:10px;color:#71717a;font-weight:600;text-transform:uppercase;letter-spacing:.6px;margin-bottom:6px}
-.app-stat .v{font-size:22px;font-weight:800;color:#09090b;letter-spacing:-.5px;font-family:'JetBrains Mono',monospace}
-.app-table{background:#fff;border:1px solid #e4e4e7;border-radius:8px;overflow:hidden;font-size:12px;font-family:'JetBrains Mono',monospace}
-.app-row{display:grid;grid-template-columns:60px 1fr 70px;padding:9px 14px;border-bottom:1px solid #f4f4f5;color:#52525b}
-.app-row:last-child{border-bottom:none}
-.app-row.head{background:#fafafa;color:#a1a1aa;font-size:10px;text-transform:uppercase;letter-spacing:.5px}
-.app-row b{color:#09090b;font-weight:700}
-
-/* ---------- SECTIONS ---------- */
-section{padding:88px 0;position:relative}
-.section-head{text-align:center;max-width:640px;margin:0 auto 56px}
-.section-eyebrow{font-size:11.5px;font-weight:700;letter-spacing:1.2px;color:#71717a;text-transform:uppercase;margin-bottom:14px}
-h2{font-size:40px;font-weight:800;letter-spacing:-1.5px;line-height:1.1;margin-bottom:14px}
-@media(max-width:768px){h2{font-size:28px;letter-spacing:-.8px}}
-.section-sub{color:#52525b;font-size:16px}
-
-/* ---------- TRUST ---------- */
-.trust{background:#ffffff;padding:40px 0;border-top:1px solid #e4e4e7;border-bottom:1px solid #e4e4e7}
-.trust-inner{display:flex;justify-content:space-around;gap:24px;flex-wrap:wrap;max-width:1000px;margin:0 auto}
-.trust-item{display:flex;align-items:center;gap:12px;color:#52525b;font-size:14px;font-weight:500}
-.trust-icon{width:36px;height:36px;border-radius:9px;background:#f4f4f5;color:#09090b;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.trust-icon svg{width:18px;height:18px}
-
-/* ---------- FEATURES ---------- */
-.features-sec{background:#f4f4f5}
-.features-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:#e4e4e7;border:1px solid #e4e4e7;border-radius:12px;overflow:hidden}
-@media(max-width:900px){.features-grid{grid-template-columns:1fr 1fr}}
-@media(max-width:600px){.features-grid{grid-template-columns:1fr}}
-.feat{background:#fafafa;padding:28px;transition:background .3s cubic-bezier(.16,1,.3,1);position:relative}
-.feat:hover{background:#ffffff}
-.feat-icon{width:44px;height:44px;border-radius:10px;background:#09090b;color:#fafafa;display:flex;align-items:center;justify-content:center;margin-bottom:18px;transition:transform .4s cubic-bezier(.16,1,.3,1)}
-.feat:hover .feat-icon{transform:scale(1.08) rotate(-4deg)}
-.feat-icon svg{width:22px;height:22px}
-.feat-num{position:absolute;top:24px;right:24px;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;color:#d4d4d8;letter-spacing:.5px}
-.feat h3{font-size:16px;font-weight:700;letter-spacing:-.3px;margin-bottom:8px}
-.feat p{font-size:14px;color:#52525b;line-height:1.6}
-
-/* ---------- SCREENSHOTS (dark) ---------- */
-.shots-sec{background:#09090b;color:#fafafa;padding:96px 0}
-.shots-sec .section-eyebrow{color:#a1a1aa}
-.shots-sec h2{color:#fafafa}
-.shots-sec .section-sub{color:#a1a1aa}
-.shots-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;margin-top:8px}
-@media(max-width:768px){.shots-grid{grid-template-columns:1fr}}
-.shot{
-  background:#18181b;border:1px solid #27272a;
-  border-radius:14px;padding:14px;
-  transition:opacity 1.2s cubic-bezier(.16,1,.3,1), transform 1.2s cubic-bezier(.16,1,.3,1), border-color .3s;
-  overflow:hidden;
-  opacity:0;
-  transform:translateY(90px) scale(.9) rotateX(12deg);
-  transform-origin:center bottom;
+.laptop-cam{
+  position:absolute;top:6px;left:50%;transform:translateX(-50%);
+  width:6px;height:6px;border-radius:50%;background:#1f1f1f;
+  box-shadow:0 0 0 1px rgba(255,255,255,.06);
 }
-.shot.in{opacity:1;transform:translateY(0) scale(1) rotateX(0)}
-.shot:hover{transform:translateY(-10px) scale(1.02);border-color:#3f3f46;box-shadow:0 30px 60px -20px rgba(59,130,246,.35)}
-.shot-img{aspect-ratio:16/10;border-radius:8px;overflow:hidden;background:#0f0f11;display:flex;align-items:center;justify-content:center;position:relative}
-.shot-img img{width:100%;height:100%;object-fit:cover;transition:transform .7s cubic-bezier(.16,1,.3,1)}
-.shot:hover .shot-img img{transform:scale(1.06)}
-.shot-ph{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;background:linear-gradient(135deg,#18181b,#0f0f11);color:#3f3f46}
-.shot-ph svg{width:44px;height:44px}
-.shot-ph span{font-size:11px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:#52525b}
-.shot-label{padding:14px 4px 4px;font-weight:700;font-size:14.5px;color:#fafafa;display:flex;align-items:center;justify-content:space-between}
-.shot-label .tag{font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:500;color:#a1a1aa;padding:2px 8px;border-radius:5px;background:#27272a}
-.shot-desc{font-size:13px;color:#a1a1aa;padding:0 4px 4px;line-height:1.5}
+.slider-viewport{
+  aspect-ratio:16/10;
+  background:#0a0a0a;
+  border-radius:6px;
+  overflow:hidden;
+  position:relative;
+}
+.slider-track{
+  display:flex;
+  height:100%;
+  transition:transform .8s cubic-bezier(.16,1,.3,1);
+  will-change:transform;
+}
+.slider-slide{
+  min-width:100%;height:100%;
+  display:flex;align-items:center;justify-content:center;
+  background:#0f0f0f;
+}
+.slider-slide img{
+  width:100%;height:100%;object-fit:cover;
+  user-select:none;-webkit-user-drag:none;
+}
+.slider-arrow{
+  position:absolute;top:50%;transform:translateY(-50%);
+  width:44px;height:44px;border-radius:50%;
+  background:rgba(255,255,255,.92);
+  border:none;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  color:#0a0a0a;
+  box-shadow:0 4px 16px rgba(0,0,0,.35);
+  transition:.25s cubic-bezier(.16,1,.3,1);
+  z-index:2;
+}
+.slider-arrow:hover{background:#fff;transform:translateY(-50%) scale(1.08)}
+.slider-arrow.prev{left:20px}
+.slider-arrow.next{right:20px}
+.slider-arrow svg{width:18px;height:18px}
+@media(max-width:640px){
+  .slider-arrow{width:36px;height:36px}
+  .slider-arrow.prev{left:10px}
+  .slider-arrow.next{right:10px}
+  .slider-arrow svg{width:15px;height:15px}
+}
+.laptop-base{
+  height:22px;
+  background:linear-gradient(180deg,#1c1c1c,#0a0a0a);
+  border-radius:0 0 14px 14px;
+  position:relative;
+  box-shadow:0 8px 24px -4px rgba(0,0,0,.5);
+}
+.laptop-base::after{
+  content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);
+  width:90px;height:5px;border-radius:0 0 6px 6px;
+  background:#0a0a0a;
+}
 
-/* ---------- WHY ---------- */
-.why-sec{background:#fafafa}
-.why-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:32px}
+.slider-dots{
+  display:flex;justify-content:center;gap:8px;margin-top:32px;
+}
+.slider-dot{
+  width:8px;height:8px;border-radius:50%;
+  background:rgba(255,255,255,.2);
+  border:none;cursor:pointer;padding:0;
+  transition:.3s cubic-bezier(.16,1,.3,1);
+}
+.slider-dot.active{
+  background:#fbfbfa;width:26px;border-radius:4px;
+}
+.slider-caption{
+  text-align:center;margin-top:24px;
+  color:#a3a3a3;font-size:13.5px;font-weight:500;
+  min-height:22px;
+  transition:opacity .3s;
+}
+
+/* ============================================================
+   SHOT GRID (below laptop)
+   ============================================================ */
+.shots-mini{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:14px;
+  margin-top:64px;
+}
+@media(max-width:900px){.shots-mini{grid-template-columns:1fr 1fr}}
+@media(max-width:520px){.shots-mini{grid-template-columns:1fr 1fr;gap:10px}}
+.shots-mini-item{
+  aspect-ratio:16/10;border-radius:10px;overflow:hidden;
+  cursor:zoom-in;position:relative;
+  background:#18181b;border:1px solid #27272a;
+  transition:.4s cubic-bezier(.16,1,.3,1);
+}
+.shots-mini-item:hover{
+  transform:translateY(-6px) scale(1.02);
+  border-color:#3f3f46;
+  box-shadow:0 20px 40px -10px rgba(59,130,246,.3);
+}
+.shots-mini-item img{width:100%;height:100%;object-fit:cover}
+.shots-mini-item::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(180deg,transparent 60%,rgba(0,0,0,.6));
+  opacity:0;transition:opacity .3s;
+}
+.shots-mini-item:hover::after{opacity:1}
+.shots-mini-label{
+  position:absolute;bottom:8px;left:12px;right:12px;
+  font-size:11px;font-weight:600;color:#fbfbfa;
+  opacity:0;transition:opacity .3s;
+  z-index:1;
+}
+.shots-mini-item:hover .shots-mini-label{opacity:1}
+
+/* ============================================================
+   WHY
+   ============================================================ */
+.why-sec{background:#fbfbfa}
+.why-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:28px}
 @media(max-width:900px){.why-grid{grid-template-columns:1fr 1fr}}
 @media(max-width:520px){.why-grid{grid-template-columns:1fr}}
-.why-item{background:#fff;border:1px solid #e4e4e7;border-radius:14px;padding:26px;transition:transform .45s cubic-bezier(.16,1,.3,1), box-shadow .45s, border-color .3s}
-.why-item:hover{transform:translateY(-8px);border-color:#a1a1aa;box-shadow:0 20px 40px -16px rgba(9,9,11,.18)}
-.why-icon{width:44px;height:44px;border-radius:10px;background:#f4f4f5;color:#09090b;display:flex;align-items:center;justify-content:center;margin-bottom:16px;transition:transform .45s cubic-bezier(.16,1,.3,1)}
-.why-item:hover .why-icon{transform:scale(1.12) rotate(6deg);background:#09090b;color:#fafafa}
+.why-item{
+  background:#fff;border:1px solid rgba(0,0,0,.07);
+  border-radius:14px;padding:28px;
+  transition:transform .5s cubic-bezier(.16,1,.3,1),box-shadow .5s,border-color .3s;
+}
+.why-item:hover{
+  transform:translateY(-8px);
+  border-color:rgba(0,0,0,.2);
+  box-shadow:0 24px 48px -16px rgba(0,0,0,.18);
+}
+.why-icon{
+  width:46px;height:46px;border-radius:11px;
+  background:#f5f5f4;color:#0a0a0a;
+  display:flex;align-items:center;justify-content:center;
+  margin-bottom:18px;
+  transition:transform .5s cubic-bezier(.16,1,.3,1),background .3s,color .3s;
+}
+.why-item:hover .why-icon{
+  transform:scale(1.12) rotate(6deg);
+  background:#0a0a0a;color:#fbfbfa;
+}
 .why-icon svg{width:22px;height:22px}
-.why-item h3{font-size:15px;font-weight:700;margin-bottom:8px;letter-spacing:-.2px}
-.why-item p{font-size:13.5px;color:#52525b}
+.why-item h3{font-size:15.5px;font-weight:700;margin-bottom:8px;letter-spacing:-.2px}
+.why-item p{font-size:13.5px;color:#525252;line-height:1.6}
 
-/* ---------- PRICING ---------- */
-.pricing-sec{background:#ffffff}
-.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;align-items:start}
-@media(max-width:860px){.pricing-grid{grid-template-columns:1fr;max-width:440px;margin:0 auto}}
-.plan{background:#fff;border:1px solid #e4e4e7;border-radius:14px;padding:28px;display:flex;flex-direction:column;transition:transform .4s cubic-bezier(.16,1,.3,1), box-shadow .4s, border-color .3s}
-.plan:hover{box-shadow:0 20px 48px -16px rgba(9,9,11,.18);transform:translateY(-6px);border-color:#a1a1aa}
-.plan.best{background:#09090b;color:#fafafa;border-color:#09090b;box-shadow:0 20px 48px -12px rgba(9,9,11,.35)}
-.plan.best:hover{transform:translateY(-8px) scale(1.02);box-shadow:0 30px 60px -12px rgba(9,9,11,.5)}
-.plan.best .plan-name{color:#a1a1aa}
-.plan.best .plan-price{color:#fafafa}
-.plan.best .plan-price .cur{color:#52525b}
-.plan.best .plan-period{color:#a1a1aa}
-.plan.best .plan-feat{color:#e4e4e7}
+/* ============================================================
+   PRICING
+   ============================================================ */
+.pricing-sec{background:#fff}
+.pricing-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:20px;align-items:start;
+}
+@media(max-width:860px){.pricing-grid{grid-template-columns:1fr;max-width:460px;margin:0 auto}}
+.plan{
+  background:#fff;border:1px solid rgba(0,0,0,.09);
+  border-radius:16px;padding:32px;
+  display:flex;flex-direction:column;
+  transition:transform .45s cubic-bezier(.16,1,.3,1),box-shadow .45s,border-color .3s;
+}
+.plan:hover{
+  transform:translateY(-6px);
+  border-color:rgba(0,0,0,.2);
+  box-shadow:0 24px 48px -16px rgba(0,0,0,.16);
+}
+.plan.best{
+  background:#0a0a0a;color:#fbfbfa;border-color:#0a0a0a;
+  box-shadow:0 24px 48px -12px rgba(0,0,0,.35);
+}
+.plan.best:hover{
+  transform:translateY(-8px) scale(1.02);
+  box-shadow:0 32px 64px -12px rgba(0,0,0,.5);
+}
+.plan.best .plan-name{color:#a3a3a3}
+.plan.best .plan-price{color:#fbfbfa}
+.plan.best .plan-price .cur{color:#525252}
+.plan.best .plan-period{color:#a3a3a3}
+.plan.best .plan-feat{color:#e5e5e5}
 .plan.best .plan-feat::before{color:#10b981}
-.plan.best .plan-feats{border-top-color:#27272a}
-.plan-tag{display:inline-block;padding:3px 9px;border-radius:5px;background:#27272a;color:#fafafa;font-size:10.5px;font-weight:700;letter-spacing:.5px;margin-bottom:14px;text-transform:uppercase}
-.plan-name{font-size:12px;font-weight:700;color:#71717a;text-transform:uppercase;letter-spacing:.8px;margin-bottom:12px}
-.plan-price{font-size:38px;font-weight:800;letter-spacing:-1.5px;color:#09090b;line-height:1}
-.plan-price .cur{font-size:20px;font-weight:700;margin-right:2px;color:#a1a1aa}
-.plan-period{font-size:13px;color:#71717a;margin-top:6px;margin-bottom:22px}
-.plan-feats{list-style:none;padding:22px 0;border-top:1px solid #f4f4f5;margin-bottom:22px;flex:1}
-.plan-feat{display:flex;align-items:flex-start;gap:9px;padding:6px 0;font-size:13.5px;color:#52525b}
+.plan.best .plan-feats{border-top-color:#1f1f1f}
+.plan-tag{
+  display:inline-block;padding:4px 10px;border-radius:6px;
+  background:#1f1f1f;color:#fbfbfa;
+  font-size:10.5px;font-weight:700;letter-spacing:.6px;
+  margin-bottom:16px;text-transform:uppercase;
+}
+.plan-name{
+  font-size:12px;font-weight:700;color:#737373;
+  text-transform:uppercase;letter-spacing:1px;margin-bottom:14px;
+}
+.plan-price{
+  font-size:40px;font-weight:800;letter-spacing:-1.8px;
+  color:#0a0a0a;line-height:1;
+}
+.plan-price .cur{font-size:22px;font-weight:700;margin-right:2px;color:#a3a3a3}
+.plan-period{font-size:13px;color:#737373;margin-top:8px;margin-bottom:24px}
+.plan-feats{
+  list-style:none;padding:24px 0;
+  border-top:1px solid rgba(0,0,0,.06);
+  margin-bottom:24px;flex:1;
+}
+.plan-feat{
+  display:flex;align-items:flex-start;gap:10px;
+  padding:6px 0;font-size:13.5px;color:#525252;
+}
 .plan-feat::before{content:'✓';color:#10b981;font-weight:800;flex-shrink:0}
-.plan-actions{display:flex;flex-direction:column;gap:8px}
-.plan-btn{display:flex;align-items:center;justify-content:center;gap:8px;padding:11px;border-radius:9px;font-size:13.5px;font-weight:600;cursor:pointer;transition:.2s cubic-bezier(.16,1,.3,1);text-decoration:none}
+.plan-actions{display:flex;flex-direction:column;gap:9px}
+.plan-btn{
+  display:flex;align-items:center;justify-content:center;gap:9px;
+  padding:12px;border-radius:10px;
+  font-size:13.5px;font-weight:600;cursor:pointer;
+  transition:.25s cubic-bezier(.16,1,.3,1);
+}
 .plan-btn svg{width:16px;height:16px}
-.plan-btn-wa{background:#09090b;color:#fafafa}
-.plan.best .plan-btn-wa{background:#fafafa;color:#09090b}
-.plan-btn-wa:hover{transform:translateY(-2px);box-shadow:0 8px 20px -6px rgba(9,9,11,.4)}
-.plan-btn-mail{background:#fafafa;color:#52525b;border:1px solid #e4e4e7}
-.plan.best .plan-btn-mail{background:#18181b;color:#a1a1aa;border-color:#27272a}
-.plan-btn-mail:hover{color:#09090b;border-color:#a1a1aa;transform:translateY(-2px)}
-.plan.best .plan-btn-mail:hover{color:#fafafa}
-.pricing-note{text-align:center;margin-top:32px;color:#71717a;font-size:13.5px}
-.pricing-note b{color:#09090b}
+.plan-btn-wa{background:#0a0a0a;color:#fbfbfa}
+.plan.best .plan-btn-wa{background:#fbfbfa;color:#0a0a0a}
+.plan-btn-wa:hover{transform:translateY(-2px);box-shadow:0 10px 24px -8px rgba(0,0,0,.4)}
+.plan-btn-mail{
+  background:#fbfbfa;color:#525252;
+  border:1px solid rgba(0,0,0,.08);
+}
+.plan.best .plan-btn-mail{
+  background:#1a1a1a;color:#a3a3a3;border-color:#262626;
+}
+.plan-btn-mail:hover{color:#0a0a0a;border-color:rgba(0,0,0,.25);transform:translateY(-2px)}
+.plan.best .plan-btn-mail:hover{color:#fbfbfa}
+.pricing-note{text-align:center;margin-top:36px;color:#737373;font-size:13.5px}
+.pricing-note b{color:#0a0a0a}
 
-/* ---------- FAQ ---------- */
-.faq-sec{background:#f4f4f5}
-.faq-list{max-width:720px;margin:0 auto;background:#fff;border:1px solid #e4e4e7;border-radius:14px;overflow:hidden}
-.faq-item{border-bottom:1px solid #e4e4e7;padding:22px 26px;transition:background .2s}
+/* ============================================================
+   FAQ
+   ============================================================ */
+.faq-sec{background:#f5f5f4}
+.faq-list{
+  max-width:760px;margin:0 auto;
+  background:#fff;border:1px solid rgba(0,0,0,.07);
+  border-radius:16px;overflow:hidden;
+}
+.faq-item{
+  border-bottom:1px solid rgba(0,0,0,.06);
+  padding:24px 28px;
+  transition:background .2s;
+}
 .faq-item:last-child{border-bottom:none}
-.faq-item:hover{background:#fafafa}
-.faq-q{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;cursor:pointer;user-select:none}
-.faq-q h3{font-size:15px;font-weight:700;letter-spacing:-.2px;color:#09090b;flex:1}
-.faq-q svg{width:16px;height:16px;flex-shrink:0;color:#71717a;margin-top:3px;transition:transform .4s cubic-bezier(.16,1,.3,1)}
-.faq-item.open .faq-q svg{transform:rotate(135deg);color:#2563eb}
-.faq-a{max-height:0;overflow:hidden;transition:max-height .45s cubic-bezier(.16,1,.3,1), padding .35s}
-.faq-item.open .faq-a{max-height:300px;padding-top:12px}
-.faq-a p{color:#52525b;font-size:14.5px;line-height:1.65}
+.faq-item:hover{background:#fbfbfa}
+.faq-q{
+  display:flex;justify-content:space-between;align-items:flex-start;
+  gap:20px;cursor:pointer;user-select:none;
+}
+.faq-q h3{
+  font-size:15.5px;font-weight:700;letter-spacing:-.2px;
+  color:#0a0a0a;flex:1;
+}
+.faq-q svg{
+  width:18px;height:18px;flex-shrink:0;color:#737373;margin-top:3px;
+  transition:transform .45s cubic-bezier(.16,1,.3,1),color .2s;
+}
+.faq-item.open .faq-q svg{transform:rotate(135deg);color:#0a0a0a}
+.faq-a{
+  max-height:0;overflow:hidden;
+  transition:max-height .5s cubic-bezier(.16,1,.3,1),padding .35s;
+}
+.faq-item.open .faq-a{max-height:400px;padding-top:14px}
+.faq-a p{color:#525252;font-size:14.5px;line-height:1.7}
 
-/* ---------- CTA ---------- */
-.cta-sec{background:linear-gradient(180deg,#09090b 0%,#18181b 100%);color:#fafafa;padding:96px 0;text-align:center;position:relative;overflow:hidden}
-.cta-sec::before{content:'';position:absolute;top:-40%;left:50%;transform:translateX(-50%);width:900px;height:900px;background:radial-gradient(circle,rgba(59,130,246,.18),transparent 60%);pointer-events:none}
+/* ============================================================
+   CTA
+   ============================================================ */
+.cta-sec{
+  background:linear-gradient(180deg,#0a0a0a 0%,#141414 100%);
+  color:#fbfbfa;padding:110px 0;
+  text-align:center;position:relative;overflow:hidden;
+}
+.cta-sec::before{
+  content:'';position:absolute;top:-40%;left:50%;transform:translateX(-50%);
+  width:900px;height:900px;
+  background:radial-gradient(circle,rgba(59,130,246,.15),transparent 62%);
+  pointer-events:none;
+}
 .cta-sec > .wrap{position:relative;z-index:1}
-.cta-sec h2{color:#fafafa;letter-spacing:-1.5px}
-.cta-sec p{color:#a1a1aa;margin-bottom:32px;max-width:560px;margin-left:auto;margin-right:auto}
-.cta-buttons{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
-.cta-sec .btn-primary{background:#fafafa;color:#09090b}
-.cta-sec .btn-primary:hover{background:#e4e4e7}
-.cta-sec .btn-ghost{background:transparent;color:#fafafa;border-color:#27272a}
-.cta-sec .btn-ghost:hover{background:#18181b;border-color:#3f3f46}
+.cta-sec h2{color:#fbfbfa;letter-spacing:-1.6px}
+.cta-sec p{color:#a3a3a3;margin-bottom:36px;max-width:580px;margin-left:auto;margin-right:auto;font-size:16.5px}
+.cta-buttons{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.cta-sec .btn-primary{background:#fbfbfa;color:#0a0a0a}
+.cta-sec .btn-primary:hover{background:#fff}
+.cta-sec .btn-ghost{background:transparent;color:#fbfbfa;border-color:#262626}
+.cta-sec .btn-ghost:hover{background:#141414;border-color:#3f3f46}
 
-/* ---------- FOOTER ---------- */
-.foot{padding:56px 0 32px;background:#09090b;color:#a1a1aa}
-.foot-inner{display:grid;grid-template-columns:2fr 1fr 1fr;gap:48px;padding-bottom:32px;border-bottom:1px solid #27272a;margin-bottom:24px}
-@media(max-width:768px){.foot-inner{grid-template-columns:1fr;gap:24px}}
-.foot h4{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:#fafafa;margin-bottom:16px}
-.foot p{font-size:13.5px;color:#71717a;max-width:340px;line-height:1.7}
+/* ============================================================
+   FOOTER
+   ============================================================ */
+.foot{
+  padding:60px 0 34px;background:#0a0a0a;color:#a3a3a3;
+}
+.foot-inner{
+  display:grid;grid-template-columns:2fr 1fr 1fr;gap:52px;
+  padding-bottom:34px;border-bottom:1px solid #1f1f1f;
+  margin-bottom:26px;
+}
+@media(max-width:768px){.foot-inner{grid-template-columns:1fr;gap:28px}}
+.foot h4{
+  font-size:12px;font-weight:700;text-transform:uppercase;
+  letter-spacing:1px;color:#fbfbfa;margin-bottom:18px;
+}
+.foot p{font-size:13.5px;color:#737373;max-width:360px;line-height:1.7}
 .foot ul{list-style:none}
-.foot ul li{margin-bottom:10px}
-.foot ul a{color:#a1a1aa;font-size:13.5px;transition:.15s;display:inline-flex;align-items:center;gap:8px}
-.foot ul a:hover{color:#fafafa}
+.foot ul li{margin-bottom:11px}
+.foot ul a{
+  color:#a3a3a3;font-size:13.5px;transition:.18s;
+  display:inline-flex;align-items:center;gap:9px;
+}
+.foot ul a:hover{color:#fbfbfa}
 .foot ul a svg{width:14px;height:14px}
-.foot .logo{margin-bottom:14px;color:#fafafa}
-.foot .logo .logo-mark{background:#fafafa;color:#09090b}
-.foot-bottom{display:flex;justify-content:space-between;align-items:center;gap:16px;color:#52525b;font-size:12.5px;flex-wrap:wrap}
+.foot .logo{margin-bottom:16px;color:#fbfbfa}
+.foot .logo .logo-mark{background:#fff;border-color:#262626}
+.foot-bottom{
+  display:flex;justify-content:space-between;align-items:center;
+  gap:16px;color:#525252;font-size:12.5px;flex-wrap:wrap;
+}
+
+/* ============================================================
+   LIGHTBOX — for screenshot zoom
+   ============================================================ */
+.lightbox{
+  position:fixed;inset:0;z-index:9999;
+  background:rgba(0,0,0,.94);
+  display:none;
+  align-items:center;justify-content:center;
+  padding:20px;
+  touch-action:none;
+  overflow:hidden;
+}
+.lightbox.open{display:flex;animation:lbFade .25s}
+@keyframes lbFade{from{opacity:0}to{opacity:1}}
+.lightbox-img-wrap{
+  max-width:100%;max-height:100%;
+  display:flex;align-items:center;justify-content:center;
+  position:relative;
+}
+.lightbox img{
+  max-width:100%;max-height:90vh;
+  border-radius:8px;
+  transition:transform .2s ease-out;
+  user-select:none;-webkit-user-drag:none;
+  cursor:grab;
+  will-change:transform;
+}
+.lightbox img.grabbing{cursor:grabbing;transition:none}
+.lightbox-close{
+  position:absolute;top:20px;right:20px;
+  width:48px;height:48px;border-radius:50%;
+  background:rgba(255,255,255,.1);
+  border:1px solid rgba(255,255,255,.15);
+  color:#fff;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  transition:.2s;z-index:10;
+}
+.lightbox-close:hover{background:rgba(255,255,255,.2);transform:scale(1.05)}
+.lightbox-close svg{width:20px;height:20px}
+.lightbox-hint{
+  position:absolute;bottom:20px;left:50%;transform:translateX(-50%);
+  color:rgba(255,255,255,.5);font-size:12px;
+  background:rgba(0,0,0,.4);
+  padding:8px 16px;border-radius:20px;
+  white-space:nowrap;
+}
+.lightbox-nav{
+  position:absolute;top:50%;transform:translateY(-50%);
+  width:52px;height:52px;border-radius:50%;
+  background:rgba(255,255,255,.1);
+  border:1px solid rgba(255,255,255,.15);
+  color:#fff;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  transition:.2s;z-index:10;
+}
+.lightbox-nav:hover{background:rgba(255,255,255,.2);transform:translateY(-50%) scale(1.06)}
+.lightbox-nav.prev{left:20px}
+.lightbox-nav.next{right:20px}
+.lightbox-nav svg{width:22px;height:22px}
+@media(max-width:640px){
+  .lightbox-close{top:12px;right:12px;width:40px;height:40px}
+  .lightbox-nav{width:40px;height:40px}
+  .lightbox-nav.prev{left:8px}
+  .lightbox-nav.next{right:8px}
+  .lightbox-hint{font-size:11px;bottom:12px;padding:6px 12px}
+}
 </style>
 </head>
 <body>
 
+<!-- Parallax background stethoscope -->
+<div class="bg-decor">
+  <svg class="bg-steth" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M6 3v6a4 4 0 0 0 8 0V3"/>
+    <circle cx="18" cy="16" r="3"/>
+    <path d="M10 13v3a4 4 0 0 0 8 0"/>
+  </svg>
+</div>
+
 <nav class="nav">
   <div class="nav-inner">
-    <a href="#" class="logo">
+    <a href="#" class="logo" data-scroll>
       <div class="logo-mark" data-logo></div>
       <span>CHMS</span>
     </a>
     <div class="nav-links">
-      <a href="#features">Features</a>
-      <a href="#screenshots">Screenshots</a>
-      <a href="#pricing">Pricing</a>
-      <a href="#faq">FAQ</a>
-      <a href="#contact" class="nav-cta">Get CHMS</a>
+      <a href="#features" data-scroll>Features</a>
+      <a href="#screenshots" data-scroll>Screenshots</a>
+      <a href="#pricing" data-scroll>Pricing</a>
+      <a href="#faq" data-scroll>FAQ</a>
+      <a href="#contact" class="nav-cta" data-scroll>Get CHMS</a>
     </div>
   </div>
 </nav>
@@ -346,7 +757,9 @@ h2{font-size:40px;font-weight:800;letter-spacing:-1.5px;line-height:1.1;margin-b
   <div class="wrap">
     <div class="hero-grid">
       <div>
-        <div class="eyebrow"><span class="eyebrow-dot"></span> Windows · Offline · LAN-ready</div>
+        <div class="eyebrow" data-anim="down">
+          <span class="eyebrow-dot"></span> Windows · Offline · LAN-ready
+        </div>
         <h1>
           <span class="word">Hospital</span>
           <span class="word">software</span>
@@ -357,34 +770,22 @@ h2{font-size:40px;font-weight:800;letter-spacing:-1.5px;line-height:1.1;margin-b
           <span class="word muted">own</span>
           <span class="word muted">server.</span>
         </h1>
-        <p class="hero-lead">No cloud. No subscriptions. No monthly fees. Complete hospital management for reception, diagnostics, billing, and reports — all on one Windows PC.</p>
-        <div class="hero-actions">
-          <a href="#pricing" class="btn btn-primary">View pricing →</a>
-          <a href="#contact" class="btn btn-ghost">Book a demo</a>
+        <p class="hero-lead" data-anim="up">
+          No cloud. No subscriptions. No monthly fees. Complete hospital management for reception, diagnostics, billing, and reports — all on one Windows PC.
+        </p>
+        <div class="hero-actions" data-anim="up">
+          <a href="#pricing" class="btn btn-primary" data-scroll>View pricing →</a>
+          <a href="#contact" class="btn btn-ghost" data-scroll>Book a demo</a>
         </div>
-        <div class="hero-meta">
+        <div class="hero-meta" data-anim="up">
           <span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg> 3-hour free trial</span>
           <span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg> Unlimited devices</span>
           <span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg> Data on your server</span>
         </div>
       </div>
 
-      <div class="app-preview" id="appPreview">
-        <div class="app-bar"><span></span><span></span><span></span></div>
-        <div class="app-screen">
-          <div class="app-head"><b>Dashboard</b><small>MON, 29 SEP</small></div>
-          <div class="app-stats">
-            <div class="app-stat"><div class="k">Tokens Today</div><div class="v">34</div></div>
-            <div class="app-stat"><div class="k">Collected</div><div class="v">24,800</div></div>
-          </div>
-          <div class="app-table">
-            <div class="app-row head"><span>Token</span><span>Patient</span><span>Dept</span></div>
-            <div class="app-row"><span><b>#34</b></span><span>Ahmed Khan</span><span>Lab</span></div>
-            <div class="app-row"><span><b>#33</b></span><span>Fatima Bibi</span><span>X-Ray</span></div>
-            <div class="app-row"><span><b>#32</b></span><span>Bilal Ahmed</span><span>ECG</span></div>
-            <div class="app-row"><span><b>#31</b></span><span>Sara Malik</span><span>USG</span></div>
-          </div>
-        </div>
+      <div class="hero-logo-panel" data-anim="zoom">
+        <div class="logo-big" data-logo-big></div>
       </div>
     </div>
   </div>
@@ -393,17 +794,29 @@ h2{font-size:40px;font-weight:800;letter-spacing:-1.5px;line-height:1.1;margin-b
 <section class="trust">
   <div class="wrap">
     <div class="trust-inner stagger">
-      <div class="trust-item"><div class="trust-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L4 6v6c0 5 3.5 9 8 10 4.5-1 8-5 8-10V6z"/><path d="M9 12l2 2 4-4"/></svg></div><div><div style="font-weight:700;color:#09090b">One-time payment</div><div style="font-size:12.5px">No recurring fees</div></div></div>
-      <div class="trust-item"><div class="trust-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div><div><div style="font-weight:700;color:#09090b">Unlimited devices</div><div style="font-size:12.5px">Over your LAN</div></div></div>
-      <div class="trust-item"><div class="trust-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div><div><div style="font-weight:700;color:#09090b">Free updates</div><div style="font-size:12.5px">Lifetime support</div></div></div>
-      <div class="trust-item"><div class="trust-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div><div><div style="font-weight:700;color:#09090b">Data stays local</div><div style="font-size:12.5px">Never touches cloud</div></div></div>
+      <div class="trust-item">
+        <div class="trust-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L4 6v6c0 5 3.5 9 8 10 4.5-1 8-5 8-10V6z"/><path d="M9 12l2 2 4-4"/></svg></div>
+        <div><b>One-time payment</b><div style="font-size:12.5px">No recurring fees</div></div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div>
+        <div><b>Unlimited devices</b><div style="font-size:12.5px">Over your LAN</div></div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
+        <div><b>Free updates</b><div style="font-size:12.5px">Lifetime support</div></div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
+        <div><b>Data stays local</b><div style="font-size:12.5px">Never touches cloud</div></div>
+      </div>
     </div>
   </div>
 </section>
 
 <section id="features" class="features-sec">
   <div class="wrap">
-    <div class="section-head" data-anim="fade-up">
+    <div class="section-head" data-anim="blur">
       <div class="section-eyebrow">What's inside</div>
       <h2>Everything a hospital needs</h2>
       <p class="section-sub">Built from the ground up with real hospital workflows in mind.</p>
@@ -451,51 +864,75 @@ h2{font-size:40px;font-weight:800;letter-spacing:-1.5px;line-height:1.1;margin-b
 
 <section id="screenshots" class="shots-sec">
   <div class="wrap">
-    <div class="section-head" data-anim="blur-in">
+    <div class="section-head" data-anim="blur">
       <div class="section-eyebrow">See it in action</div>
       <h2>Built to feel simple</h2>
       <p class="section-sub">Every screen is designed for speed. Your staff will learn it in minutes, not days.</p>
     </div>
-    <div class="shots-grid">
-      <div class="shot">
-        <div class="shot-img"><img src="screenshots/01-dashboard.png" alt="Dashboard" onerror="this.style.display='none';this.parentNode.innerHTML='&lt;div class=&quot;shot-ph&quot;&gt;&lt;svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot;&gt;&lt;rect x=&quot;3&quot; y=&quot;3&quot; width=&quot;18&quot; height=&quot;18&quot; rx=&quot;2&quot;/&gt;&lt;path d=&quot;M3 9h18M9 21V9&quot;/&gt;&lt;/svg&gt;&lt;span&gt;Dashboard&lt;/span&gt;&lt;/div&gt;'"></div>
-        <div class="shot-label">Live Dashboard <span class="tag">01</span></div>
-        <div class="shot-desc">Real-time tokens, revenue, pending tests</div>
+
+    <!-- LAPTOP SLIDER -->
+    <div class="laptop-wrap" data-anim="flip">
+      <div class="laptop">
+        <div class="laptop-screen">
+          <div class="laptop-cam"></div>
+          <div class="slider-viewport" id="laptopViewport">
+            <div class="slider-track" id="sliderTrack">
+              <div class="slider-slide"><img src="images/01-landing.png" alt="Department portal"></div>
+              <div class="slider-slide"><img src="images/04-new-token.png" alt="New token"></div>
+              <div class="slider-slide"><img src="images/05-receipt.png" alt="Receipt"></div>
+              <div class="slider-slide"><img src="images/06-xray.png" alt="X-Ray orders"></div>
+              <div class="slider-slide"><img src="images/07-attendance.png" alt="Attendance"></div>
+              <div class="slider-slide"><img src="images/08-reports.png" alt="Reports"></div>
+              <div class="slider-slide"><img src="images/03-login.png" alt="Section login"></div>
+              <div class="slider-slide"><img src="images/02-landing-alt.png" alt="Full portal"></div>
+            </div>
+            <button class="slider-arrow prev" id="slidePrev" aria-label="Previous">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+            </button>
+            <button class="slider-arrow next" id="slideNext" aria-label="Next">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+            </button>
+          </div>
+        </div>
+        <div class="laptop-base"></div>
       </div>
-      <div class="shot">
-        <div class="shot-img"><img src="screenshots/02-new-token.png" alt="New Token" onerror="this.style.display='none';this.parentNode.innerHTML='&lt;div class=&quot;shot-ph&quot;&gt;&lt;svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot;&gt;&lt;path d=&quot;M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z&quot;/&gt;&lt;path d=&quot;M14 2v6h6M16 13H8M16 17H8M10 9H8&quot;/&gt;&lt;/svg&gt;&lt;span&gt;New Token&lt;/span&gt;&lt;/div&gt;'"></div>
-        <div class="shot-label">New Token Form <span class="tag">02</span></div>
-        <div class="shot-desc">Register patient in under a minute</div>
+      <div class="slider-dots" id="sliderDots"></div>
+      <div class="slider-caption" id="sliderCaption">Department Portal</div>
+    </div>
+
+    <!-- MINI GRID -->
+    <div class="shots-mini stagger" id="shotsMini">
+      <div class="shots-mini-item" data-img="images/01-landing.png">
+        <img src="images/01-landing.png" alt="Department portal" loading="lazy">
+        <div class="shots-mini-label">Department Portal</div>
       </div>
-      <div class="shot">
-        <div class="shot-img"><img src="screenshots/03-lab.png" alt="Laboratory" onerror="this.style.display='none';this.parentNode.innerHTML='&lt;div class=&quot;shot-ph&quot;&gt;&lt;svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot;&gt;&lt;path d=&quot;M9 3h6M10 3v6L5 19a2 2 0 0 0 1.8 3h10.4A2 2 0 0 0 19 19L14 9V3&quot;/&gt;&lt;/svg&gt;&lt;span&gt;Laboratory&lt;/span&gt;&lt;/div&gt;'"></div>
-        <div class="shot-label">Laboratory View <span class="tag">03</span></div>
-        <div class="shot-desc">See only pending tests. Mark done instantly</div>
+      <div class="shots-mini-item" data-img="images/03-login.png">
+        <img src="images/03-login.png" alt="Section login" loading="lazy">
+        <div class="shots-mini-label">Section Login</div>
       </div>
-      <div class="shot">
-        <div class="shot-img"><img src="screenshots/04-xray.png" alt="X-Ray" onerror="this.style.display='none';this.parentNode.innerHTML='&lt;div class=&quot;shot-ph&quot;&gt;&lt;svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot;&gt;&lt;circle cx=&quot;12&quot; cy=&quot;12&quot; r=&quot;9&quot;/&gt;&lt;path d=&quot;M12 3v18M3 12h18&quot;/&gt;&lt;/svg&gt;&lt;span&gt;X-Ray&lt;/span&gt;&lt;/div&gt;'"></div>
-        <div class="shot-label">X-Ray Section <span class="tag">04</span></div>
-        <div class="shot-desc">Route, track, and complete imaging orders</div>
+      <div class="shots-mini-item" data-img="images/04-new-token.png">
+        <img src="images/04-new-token.png" alt="New token" loading="lazy">
+        <div class="shots-mini-label">New Token Form</div>
       </div>
-      <div class="shot">
-        <div class="shot-img"><img src="screenshots/05-usg.png" alt="Ultrasound" onerror="this.style.display='none';this.parentNode.innerHTML='&lt;div class=&quot;shot-ph&quot;&gt;&lt;svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot;&gt;&lt;circle cx=&quot;12&quot; cy=&quot;12&quot; r=&quot;3&quot;/&gt;&lt;path d=&quot;M12 2v3M12 19v3M2 12h3M19 12h3&quot;/&gt;&lt;/svg&gt;&lt;span&gt;Ultrasound&lt;/span&gt;&lt;/div&gt;'"></div>
-        <div class="shot-label">Ultrasound Section <span class="tag">05</span></div>
-        <div class="shot-desc">Sonography workflow with operator tracking</div>
+      <div class="shots-mini-item" data-img="images/05-receipt.png">
+        <img src="images/05-receipt.png" alt="Receipt" loading="lazy">
+        <div class="shots-mini-label">Thermal Receipt</div>
       </div>
-      <div class="shot">
-        <div class="shot-img"><img src="screenshots/06-ecg.png" alt="ECG" onerror="this.style.display='none';this.parentNode.innerHTML='&lt;div class=&quot;shot-ph&quot;&gt;&lt;svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot;&gt;&lt;path d=&quot;M3 12h4l2-6 4 12 2-6h6&quot;/&gt;&lt;/svg&gt;&lt;span&gt;ECG&lt;/span&gt;&lt;/div&gt;'"></div>
-        <div class="shot-label">ECG Section <span class="tag">06</span></div>
-        <div class="shot-desc">Cardiology diagnostics with full tracking</div>
+      <div class="shots-mini-item" data-img="images/06-xray.png">
+        <img src="images/06-xray.png" alt="X-Ray" loading="lazy">
+        <div class="shots-mini-label">X-Ray Section</div>
       </div>
-      <div class="shot">
-        <div class="shot-img"><img src="screenshots/07-reports.png" alt="Reports" onerror="this.style.display='none';this.parentNode.innerHTML='&lt;div class=&quot;shot-ph&quot;&gt;&lt;svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot;&gt;&lt;path d=&quot;M3 3v18h18&quot;/&gt;&lt;rect x=&quot;7&quot; y=&quot;12&quot; width=&quot;3&quot; height=&quot;6&quot;/&gt;&lt;rect x=&quot;12&quot; y=&quot;8&quot; width=&quot;3&quot; height=&quot;10&quot;/&gt;&lt;rect x=&quot;17&quot; y=&quot;4&quot; width=&quot;3&quot; height=&quot;14&quot;/&gt;&lt;/svg&gt;&lt;span&gt;Reports&lt;/span&gt;&lt;/div&gt;'"></div>
-        <div class="shot-label">Reports &amp; Payments <span class="tag">07</span></div>
-        <div class="shot-desc">Daily, weekly, monthly, and yearly breakdowns</div>
+      <div class="shots-mini-item" data-img="images/07-attendance.png">
+        <img src="images/07-attendance.png" alt="Attendance" loading="lazy">
+        <div class="shots-mini-label">Attendance</div>
       </div>
-      <div class="shot">
-        <div class="shot-img"><img src="screenshots/08-receipt.png" alt="Receipt" onerror="this.style.display='none';this.parentNode.innerHTML='&lt;div class=&quot;shot-ph&quot;&gt;&lt;svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot;&gt;&lt;path d=&quot;M6 2v20l3-2 3 2 3-2 3 2V2l-3 2-3-2-3 2z&quot;/&gt;&lt;path d=&quot;M9 8h6M9 12h6M9 16h3&quot;/&gt;&lt;/svg&gt;&lt;span&gt;Receipt&lt;/span&gt;&lt;/div&gt;'"></div>
-        <div class="shot-label">Thermal Receipt <span class="tag">08</span></div>
-        <div class="shot-desc">58mm-ready, with logo and custom fields</div>
+      <div class="shots-mini-item" data-img="images/08-reports.png">
+        <img src="images/08-reports.png" alt="Reports" loading="lazy">
+        <div class="shots-mini-label">Reports &amp; Payments</div>
+      </div>
+      <div class="shots-mini-item" data-img="images/02-landing-alt.png">
+        <img src="images/02-landing-alt.png" alt="Full portal" loading="lazy">
+        <div class="shots-mini-label">Full Portal View</div>
       </div>
     </div>
   </div>
@@ -503,7 +940,7 @@ h2{font-size:40px;font-weight:800;letter-spacing:-1.5px;line-height:1.1;margin-b
 
 <section class="why-sec">
   <div class="wrap">
-    <div class="section-head" data-anim="fade-up">
+    <div class="section-head" data-anim="blur">
       <div class="section-eyebrow">Why CHMS</div>
       <h2>Built for hospitals that want control</h2>
       <p class="section-sub">Everything you need. Nothing you don't.</p>
@@ -519,13 +956,13 @@ h2{font-size:40px;font-weight:800;letter-spacing:-1.5px;line-height:1.1;margin-b
 
 <section id="pricing" class="pricing-sec">
   <div class="wrap">
-    <div class="section-head" data-anim="fade-up">
+    <div class="section-head" data-anim="blur">
       <div class="section-eyebrow">Pricing</div>
       <h2>Transparent. No surprises.</h2>
       <p class="section-sub">One server runs the whole hospital. Unlimited devices connect over your LAN — always free.</p>
     </div>
     <div class="pricing-grid">
-      <div class="plan" data-anim="fade-left">
+      <div class="plan" data-anim="left">
         <div class="plan-name">Monthly</div>
         <div class="plan-price"><span class="cur">Rs.</span>3,000</div>
         <div class="plan-period">per month · 1 server</div>
@@ -541,7 +978,7 @@ h2{font-size:40px;font-weight:800;letter-spacing:-1.5px;line-height:1.1;margin-b
         </div>
       </div>
 
-      <div class="plan best" data-anim="zoom-in">
+      <div class="plan best" data-anim="zoom">
         <div class="plan-tag">Best value</div>
         <div class="plan-name">Lifetime</div>
         <div class="plan-price"><span class="cur">Rs.</span>29,000</div>
@@ -558,14 +995,14 @@ h2{font-size:40px;font-weight:800;letter-spacing:-1.5px;line-height:1.1;margin-b
         </div>
       </div>
 
-      <div class="plan" data-anim="fade-right">
+      <div class="plan" data-anim="right">
         <div class="plan-name">Yearly</div>
         <div class="plan-price"><span class="cur">Rs.</span>19,000</div>
         <div class="plan-period">per year · 1 server</div>
         <ul class="plan-feats">
           <li class="plan-feat">All features included</li>
           <li class="plan-feat">Unlimited LAN devices</li>
-          <li class="plan-feat">Pay yearly and save Rs. 17,000</li>
+          <li class="plan-feat">Save Rs. 17,000 vs monthly</li>
           <li class="plan-feat">Free updates &amp; support</li>
         </ul>
         <div class="plan-actions">
@@ -574,18 +1011,18 @@ h2{font-size:40px;font-weight:800;letter-spacing:-1.5px;line-height:1.1;margin-b
         </div>
       </div>
     </div>
-    <p class="pricing-note" data-anim="fade-up">Need more servers? <b>+Rs. 15,000 one-time per extra server.</b></p>
+    <p class="pricing-note" data-anim="up">Need more servers? <b>+Rs. 15,000 one-time per extra server.</b></p>
   </div>
 </section>
 
 <section id="faq" class="faq-sec">
   <div class="wrap">
-    <div class="section-head" data-anim="fade-up">
+    <div class="section-head" data-anim="blur">
       <div class="section-eyebrow">FAQ</div>
       <h2>Common questions</h2>
       <p class="section-sub">Everything you need to know before getting started.</p>
     </div>
-    <div class="faq-list" data-anim="fade-up">
+    <div class="faq-list" data-anim="up">
       <div class="faq-item open">
         <div class="faq-q"><h3>Do I need internet to use CHMS?</h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></div>
         <div class="faq-a"><p>No. CHMS runs entirely on your local network. Internet is only used once at setup to verify your licence with the vendor.</p></div>
@@ -616,11 +1053,11 @@ h2{font-size:40px;font-weight:800;letter-spacing:-1.5px;line-height:1.1;margin-b
 
 <section id="contact" class="cta-sec">
   <div class="wrap">
-    <h2 data-anim="fade-up">Ready to upgrade your hospital?</h2>
-    <p data-anim="fade-up">Get CHMS today. One-time payment. Lifetime access. Unlimited devices.</p>
-    <div class="cta-buttons" data-anim="fade-up">
+    <h2 data-anim="up">Ready to upgrade your hospital?</h2>
+    <p data-anim="up">Get CHMS today. One-time payment. Lifetime access. Unlimited devices.</p>
+    <div class="cta-buttons" data-anim="up">
       <a href="https://wa.me/923459169271?text=Hello%2C%20I%20want%20to%20buy%20CHMS.%20Please%20send%20me%20details." target="_blank" class="btn btn-primary"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.52 3.48A11.87 11.87 0 0 0 12.05 0C5.5 0 .18 5.32.17 11.87a11.8 11.8 0 0 0 1.6 5.94L0 24l6.36-1.66a11.87 11.87 0 0 0 5.68 1.45h.01c6.55 0 11.87-5.32 11.88-11.87 0-3.17-1.24-6.16-3.41-8.44z"/></svg>WhatsApp us</a>
-      <a href="mailto:rbkahti058@gmail.com?subject=CHMS%20Purchase%20Enquiry" class="btn btn-ghost"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 6l-10 7L2 6"/></svg>rbkahti058@gmail.com</a>
+      <a href="mailto:rbkahti058@gmail.com?subject=CHMS%20Purchase%20Enquiry" class="btn btn-ghost"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 6l-10 7L2 6"/></svg>Email us</a>
     </div>
   </div>
 </section>
@@ -638,10 +1075,10 @@ h2{font-size:40px;font-weight:800;letter-spacing:-1.5px;line-height:1.1;margin-b
       <div>
         <h4>Product</h4>
         <ul>
-          <li><a href="#features">Features</a></li>
-          <li><a href="#screenshots">Screenshots</a></li>
-          <li><a href="#pricing">Pricing</a></li>
-          <li><a href="#faq">FAQ</a></li>
+          <li><a href="#features" data-scroll>Features</a></li>
+          <li><a href="#screenshots" data-scroll>Screenshots</a></li>
+          <li><a href="#pricing" data-scroll>Pricing</a></li>
+          <li><a href="#faq" data-scroll>FAQ</a></li>
         </ul>
       </div>
       <div>
@@ -659,38 +1096,64 @@ h2{font-size:40px;font-weight:800;letter-spacing:-1.5px;line-height:1.1;margin-b
   </div>
 </footer>
 
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" id="lightboxClose" aria-label="Close">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+  </button>
+  <button class="lightbox-nav prev" id="lightboxPrev" aria-label="Previous">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+  </button>
+  <button class="lightbox-nav next" id="lightboxNext" aria-label="Next">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+  </button>
+  <div class="lightbox-img-wrap">
+    <img id="lightboxImg" src="" alt="">
+  </div>
+  <div class="lightbox-hint">Pinch or scroll to zoom · drag to pan · ESC to close</div>
+</div>
+
 <script>
 /* ============================================================
-   1. UNIVERSAL LOGO LOADER
-   Tries: logo.png, logo.svg, logo.jpg, logo.jpeg, logo.webp, logo.ico
+   LOGO LOADER
    ============================================================ */
 (function(){
   const candidates = ['logo.png','logo.svg','logo.jpg','logo.jpeg','logo.webp','logo.ico'];
-  const fallback = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M2 12h20"/></svg>';
+  const fallbackSmall = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M2 12h20"/></svg>';
+  const fallbackBig = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="width:100%;height:100%;color:#0a0a0a;opacity:.85"><path d="M12 2v20M2 12h20"/><rect x="2" y="2" width="20" height="20" rx="4"/></svg>';
+
   document.querySelectorAll('[data-logo]').forEach(host => {
     let i = 0;
-    function tryNext(){
-      if (i >= candidates.length) { host.innerHTML = fallback; return; }
+    (function tryNext(){
+      if (i >= candidates.length) { host.innerHTML = fallbackSmall; return; }
       const url = candidates[i++];
-      const test = new Image();
-      test.onload = () => {
-        host.innerHTML = '<img src="' + url + '" alt="CHMS">';
-      };
-      test.onerror = tryNext;
-      test.src = url;
-    }
-    tryNext();
+      const t = new Image();
+      t.onload  = () => { host.innerHTML = '<img src="' + url + '" alt="CHMS">'; };
+      t.onerror = tryNext;
+      t.src = url;
+    })();
+  });
+
+  document.querySelectorAll('[data-logo-big]').forEach(host => {
+    let i = 0;
+    (function tryNext(){
+      if (i >= candidates.length) { host.innerHTML = fallbackBig; return; }
+      const url = candidates[i++];
+      const t = new Image();
+      t.onload  = () => { host.innerHTML = '<img src="' + url + '" alt="CHMS">'; };
+      t.onerror = tryNext;
+      t.src = url;
+    })();
   });
 })();
 
 /* ============================================================
-   2. FLUID SCROLL REVEAL (IntersectionObserver)
+   SCROLL REVEAL — IntersectionObserver
    ============================================================ */
 (function(){
-  const targets = document.querySelectorAll('[data-anim], .stagger, .shot');
+  const targets = document.querySelectorAll('[data-anim], .stagger');
   if (!('IntersectionObserver' in window)) {
     targets.forEach(e => e.classList.add('in'));
-    document.querySelectorAll('.shot').forEach(e => e.classList.add('in'));
     return;
   }
   const io = new IntersectionObserver((entries) => {
@@ -700,49 +1163,280 @@ h2{font-size:40px;font-weight:800;letter-spacing:-1.5px;line-height:1.1;margin-b
         io.unobserve(entry.target);
       }
     });
-  }, { threshold: 0.12, rootMargin: '0px 0px -80px 0px' });
-
-  targets.forEach(t => {
-    // Auto-add data-anim to direct children of .stagger? no — handled by CSS
-    io.observe(t);
-  });
+  }, { threshold: 0.1, rootMargin: '0px 0px -70px 0px' });
+  targets.forEach(t => io.observe(t));
 })();
 
 /* ============================================================
-   3. SUBTLE SECTION DRIFT (parallax on scroll)
-   Headings & preview tilt slightly as you scroll
+   PARALLAX STETHOSCOPE
    ============================================================ */
 (function(){
-  const drifting = [];
-  document.querySelectorAll('.section-head').forEach(el => drifting.push({el, factor: 0.04}));
-  const preview = document.getElementById('appPreview');
-  if (preview) drifting.push({el: preview, factor: 0.14, tilt: true});
-
-  if (!drifting.length) return;
+  const el = document.querySelector('.bg-steth');
+  if (!el) return;
   let ticking = false;
   function frame(){
-    drifting.forEach(d => {
-      const rect = d.el.getBoundingClientRect();
-      const center = rect.top + rect.height/2;
-      const viewCenter = window.innerHeight / 2;
-      const delta = (center - viewCenter) * d.factor;
-      if (d.tilt) {
-        const y = window.scrollY;
-        d.el.style.transform = 'translateY(' + Math.min(y * 0.15, 140) + 'px) rotateX(' + Math.min(y * 0.025, 6) + 'deg)';
-      } else {
-        d.el.style.transform = 'translateY(' + Math.max(Math.min(delta, 30), -30) + 'px)';
-      }
-    });
+    const y = window.scrollY;
+    el.style.transform = 'translate3d(0,' + (y * 0.15) + 'px,0) rotate(' + (y * 0.008) + 'deg)';
     ticking = false;
   }
   window.addEventListener('scroll', () => {
     if (!ticking) { requestAnimationFrame(frame); ticking = true; }
   }, { passive: true });
-  window.addEventListener('resize', frame, { passive: true });
 })();
 
 /* ============================================================
-   4. FAQ accordion
+   SMOOTH SCROLL — cinematic anchor navigation
+   ============================================================ */
+(function(){
+  document.querySelectorAll('a[data-scroll], a[href^="#"]').forEach(a => {
+    a.addEventListener('click', (e) => {
+      const href = a.getAttribute('href');
+      if (!href || href === '#' || href.length < 2) return;
+      const target = document.querySelector(href);
+      if (!target) return;
+      e.preventDefault();
+      const top = target.getBoundingClientRect().top + window.scrollY - 70;
+      // Use native smooth scroll (already enabled in CSS) but with a bit slower glide
+      window.scrollTo({ top: top, behavior: 'smooth' });
+    });
+  });
+})();
+
+/* ============================================================
+   LAPTOP SLIDER
+   ============================================================ */
+(function(){
+  const track = document.getElementById('sliderTrack');
+  const dotsContainer = document.getElementById('sliderDots');
+  const captionEl = document.getElementById('sliderCaption');
+  const prev = document.getElementById('slidePrev');
+  const next = document.getElementById('slideNext');
+  const viewport = document.getElementById('laptopViewport');
+  if (!track) return;
+
+  const slides = track.querySelectorAll('.slider-slide');
+  const captions = [
+    'Department Portal',
+    'New Token Form',
+    'Thermal Receipt',
+    'X-Ray Section',
+    'Attendance Calendar',
+    'Reports & Payments',
+    'Section Login',
+    'Full Portal View'
+  ];
+  let current = 0;
+  let autoTimer = null;
+  const AUTO_MS = 5200;
+
+  // Build dots
+  slides.forEach((_, i) => {
+    const d = document.createElement('button');
+    d.className = 'slider-dot' + (i === 0 ? ' active' : '');
+    d.setAttribute('aria-label', 'Slide ' + (i+1));
+    d.addEventListener('click', () => goto(i));
+    dotsContainer.appendChild(d);
+  });
+  const dots = dotsContainer.querySelectorAll('.slider-dot');
+
+  function goto(i) {
+    current = ((i % slides.length) + slides.length) % slides.length;
+    track.style.transform = 'translateX(-' + (current * 100) + '%)';
+    dots.forEach((d, k) => d.classList.toggle('active', k === current));
+    if (captionEl) captionEl.textContent = captions[current] || '';
+  }
+
+  function nextSlide(){ goto(current + 1); }
+  function prevSlide(){ goto(current - 1); }
+
+  function startAuto(){
+    stopAuto();
+    autoTimer = setInterval(nextSlide, AUTO_MS);
+  }
+  function stopAuto(){
+    if (autoTimer) { clearInterval(autoTimer); autoTimer = null; }
+  }
+
+  prev.addEventListener('click', () => { prevSlide(); startAuto(); });
+  next.addEventListener('click', () => { nextSlide(); startAuto(); });
+
+  // Pause on hover/touch
+  const wrap = viewport.closest('.laptop-wrap') || viewport;
+  wrap.addEventListener('mouseenter', stopAuto);
+  wrap.addEventListener('mouseleave', startAuto);
+  wrap.addEventListener('touchstart', stopAuto, { passive: true });
+  wrap.addEventListener('touchend', () => { setTimeout(startAuto, 4000); }, { passive: true });
+
+  // Swipe support
+  let touchStartX = 0;
+  viewport.addEventListener('touchstart', (e) => { touchStartX = e.touches[0].clientX; stopAuto(); }, { passive: true });
+  viewport.addEventListener('touchend', (e) => {
+    const dx = e.changedTouches[0].clientX - touchStartX;
+    if (Math.abs(dx) > 40) {
+      if (dx < 0) nextSlide(); else prevSlide();
+    }
+    setTimeout(startAuto, 4000);
+  }, { passive: true });
+
+  // Keyboard
+  document.addEventListener('keydown', (e) => {
+    if (document.getElementById('lightbox').classList.contains('open')) return;
+    if (e.key === 'ArrowRight') { nextSlide(); startAuto(); }
+    if (e.key === 'ArrowLeft')  { prevSlide(); startAuto(); }
+  });
+
+  goto(0);
+  startAuto();
+})();
+
+/* ============================================================
+   LIGHTBOX — clickable screenshots with zoom + pan
+   ============================================================ */
+(function(){
+  const lightbox = document.getElementById('lightbox');
+  const img = document.getElementById('lightboxImg');
+  const closeBtn = document.getElementById('lightboxClose');
+  const prevBtn = document.getElementById('lightboxPrev');
+  const nextBtn = document.getElementById('lightboxNext');
+  const items = Array.from(document.querySelectorAll('.shots-mini-item'));
+
+  let currentIndex = 0;
+  let scale = 1;
+  let tx = 0, ty = 0;
+  let dragging = false;
+  let lastX = 0, lastY = 0;
+
+  function srcs() { return items.map(it => it.dataset.img); }
+  function labels() { return items.map(it => it.querySelector('.shots-mini-label').textContent.trim()); }
+
+  function apply() {
+    img.style.transform = 'translate(' + tx + 'px,' + ty + 'px) scale(' + scale + ')';
+  }
+
+  function reset() {
+    scale = 1; tx = 0; ty = 0;
+    apply();
+  }
+
+  function open(i) {
+    currentIndex = i;
+    img.src = items[i].dataset.img;
+    img.alt = labels()[i] || '';
+    reset();
+    lightbox.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function close() {
+    lightbox.classList.remove('open');
+    document.body.style.overflow = '';
+    img.src = '';
+    reset();
+  }
+
+  function go(delta) {
+    currentIndex = ((currentIndex + delta) % items.length + items.length) % items.length;
+    img.src = items[currentIndex].dataset.img;
+    img.alt = labels()[currentIndex] || '';
+    reset();
+  }
+
+  items.forEach((it, i) => it.addEventListener('click', () => open(i)));
+
+  closeBtn.addEventListener('click', close);
+  prevBtn.addEventListener('click', (e) => { e.stopPropagation(); go(-1); });
+  nextBtn.addEventListener('click', (e) => { e.stopPropagation(); go(1); });
+
+  // Click background closes
+  lightbox.addEventListener('click', (e) => {
+    if (e.target === lightbox || e.target.classList.contains('lightbox-img-wrap')) close();
+  });
+
+  // ESC closes
+  document.addEventListener('keydown', (e) => {
+    if (!lightbox.classList.contains('open')) return;
+    if (e.key === 'Escape') close();
+    if (e.key === 'ArrowRight') go(1);
+    if (e.key === 'ArrowLeft')  go(-1);
+  });
+
+  // Wheel zoom
+  lightbox.addEventListener('wheel', (e) => {
+    e.preventDefault();
+    const delta = e.deltaY > 0 ? -0.15 : 0.15;
+    scale = Math.max(1, Math.min(5, scale + delta));
+    if (scale === 1) { tx = 0; ty = 0; }
+    apply();
+  }, { passive: false });
+
+  // Double-tap / double-click zoom
+  let lastTap = 0;
+  img.addEventListener('click', () => {
+    const now = Date.now();
+    if (now - lastTap < 300) {
+      if (scale > 1) { reset(); }
+      else { scale = 2.5; apply(); }
+    }
+    lastTap = now;
+  });
+
+  // Drag pan (mouse)
+  img.addEventListener('mousedown', (e) => {
+    if (scale <= 1) return;
+    dragging = true;
+    lastX = e.clientX; lastY = e.clientY;
+    img.classList.add('grabbing');
+    e.preventDefault();
+  });
+  window.addEventListener('mousemove', (e) => {
+    if (!dragging) return;
+    tx += e.clientX - lastX;
+    ty += e.clientY - lastY;
+    lastX = e.clientX; lastY = e.clientY;
+    apply();
+  });
+  window.addEventListener('mouseup', () => {
+    dragging = false;
+    img.classList.remove('grabbing');
+  });
+
+  // Pinch zoom (touch)
+  let pinchStart = 0, pinchStartScale = 1;
+  let panStartX = 0, panStartY = 0;
+  img.addEventListener('touchstart', (e) => {
+    if (e.touches.length === 2) {
+      pinchStart = distance(e.touches[0], e.touches[1]);
+      pinchStartScale = scale;
+    } else if (e.touches.length === 1 && scale > 1) {
+      panStartX = e.touches[0].clientX - tx;
+      panStartY = e.touches[0].clientY - ty;
+    }
+  }, { passive: true });
+
+  img.addEventListener('touchmove', (e) => {
+    if (e.touches.length === 2) {
+      e.preventDefault();
+      const d = distance(e.touches[0], e.touches[1]);
+      scale = Math.max(1, Math.min(5, pinchStartScale * (d / pinchStart)));
+      if (scale === 1) { tx = 0; ty = 0; }
+      apply();
+    } else if (e.touches.length === 1 && scale > 1) {
+      e.preventDefault();
+      tx = e.touches[0].clientX - panStartX;
+      ty = e.touches[0].clientY - panStartY;
+      apply();
+    }
+  }, { passive: false });
+
+  function distance(a, b) {
+    const dx = a.clientX - b.clientX;
+    const dy = a.clientY - b.clientY;
+    return Math.hypot(dx, dy);
+  }
+})();
+
+/* ============================================================
+   FAQ ACCORDION
    ============================================================ */
 (function(){
   document.querySelectorAll('.faq-item').forEach(item => {
@@ -752,29 +1446,6 @@ h2{font-size:40px;font-weight:800;letter-spacing:-1.5px;line-height:1.1;margin-b
       if (!isOpen) item.classList.add('open');
     });
   });
-})();
-
-/* ============================================================
-   5. Active nav link highlight
-   ============================================================ */
-(function(){
-  const sections = ['features', 'screenshots', 'pricing', 'faq'];
-  const links = {};
-  sections.forEach(id => {
-    const el = document.getElementById(id);
-    const a = document.querySelector('.nav-links a[href="#' + id + '"]');
-    if (el && a) links[id] = { el, a };
-  });
-  if (!('IntersectionObserver' in window)) return;
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        Object.values(links).forEach(l => l.a.style.color = '');
-        if (links[e.target.id]) links[e.target.id].a.style.color = '#09090b';
-      }
-    });
-  }, { threshold: 0.4 });
-  Object.values(links).forEach(l => io.observe(l.el));
 })();
 </script>
 
